@@ -2292,6 +2292,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a204bface2eeb458d556e5196de630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _availableDrones:
+  - {fileID: 11400000, guid: 6862ff3df5283364fa2cec1e538405da, type: 2}
+  _droneNameText: {fileID: 1925671091}
+  _droneImage: {fileID: 481818296}
+  _droneCostUI:
+  - Resource: {fileID: 11400000, guid: 60e869622f9315d4d862e7a7a09b3cb1, type: 2}
+    TextUI: {fileID: 1028394658}
 --- !u!1001 &696004031
 PrefabInstance:
   m_ObjectHideFlags: 0
