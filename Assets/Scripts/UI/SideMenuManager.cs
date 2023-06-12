@@ -16,4 +16,9 @@ public class SideMenuManager : MonoBehaviour
     {
         gameObject.SetActive((newState == UIStateManager.GameState.IDLE));
     }
+
+    private void OnDestroy()
+    {
+        _stateManager.OnStateChanged -= OnUIStateChanged;
+    }
 }

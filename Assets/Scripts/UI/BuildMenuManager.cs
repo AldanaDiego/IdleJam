@@ -10,16 +10,21 @@ public class BuildMenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _droneNameText;
     [SerializeField] private Image _droneImage;
     [SerializeField] private List<ResourceTextUI> _droneCostUI;
-    //[SerializeField] private TextMeshProUGUI _additionalCostText;
+    [SerializeField] private Button _buildButton;
 
+    private ResourceStock _stock;
+    private DroneManager _droneManager;
     private int _currentDroneIndex = 0;
 
     private UIStateManager _stateManager;
 
     private void Start()
     {
+        _stock = ResourceStock.GetInstance();
+        _droneManager = DroneManager.GetInstance();
         _stateManager = UIStateManager.GetInstance();
         _stateManager.OnStateChanged += OnUIStateChanged;
+        _droneManager.OnDroneBuilt += OnDroneBuilt;
         gameObject.SetActive(false);
     }
 
@@ -30,7 +35,7 @@ public class BuildMenuManager : MonoBehaviour
         {
             _currentDroneIndex = 0;
         }
-        UpdateDroneShownInfo(_currentDroneIndex);
+        UpdateDroneShownInfo();
     }
 
     public void ShowPreviousDrone()
@@ -40,14 +45,21 @@ public class BuildMenuManager : MonoBehaviour
         {
             _currentDroneIndex = _availableDrones.Count - 1;
         }
-        UpdateDroneShownInfo(_currentDroneIndex);
+        UpdateDroneShownInfo();
     }
 
-    private void UpdateDroneShownInfo(int position)
+    public void BuildDrone()
     {
-        DroneData currentDrone = _availableDrones[position];
+        _buildButton.interactable = false;
+        _droneManager.BuildDrone(_availableDrones[_currentDroneIndex]);
+    }
+
+    private void UpdateDroneShownInfo()
+    {
+        DroneData currentDrone = _availableDrones[_currentDroneIndex];
         _droneNameText.text = currentDrone.Name;
         _droneImage.sprite = currentDrone.Image;
+        UpdateBuildButton();
         foreach (ResourceTextUI resourceText in _droneCostUI)
         {
             if (currentDrone.Cost.TryGetValue(resourceText.Resource, out int cost))
@@ -61,16 +73,33 @@ public class BuildMenuManager : MonoBehaviour
         }
     }
 
+    private void UpdateBuildButton()
+    {
+        _buildButton.interactable = _stock.CanBuildDrone(_availableDrones[_currentDroneIndex]);
+    }
+
     private void OnUIStateChanged(object sender, UIStateManager.GameState newState)
     {
         if (newState == UIStateManager.GameState.BUILD)
         {
             gameObject.SetActive(true);
-            UpdateDroneShownInfo(0);
+            _currentDroneIndex = 0;
+            UpdateDroneShownInfo();
         }
         else
         {
             gameObject.SetActive(false);
         }
+    }
+
+    private void OnDroneBuilt(object sender, DroneData data)
+    {
+        UpdateBuildButton();
+    }
+
+    private void OnDestroy()
+    {
+        _stateManager.OnStateChanged -= OnUIStateChanged;
+        _droneManager.OnDroneBuilt -= OnDroneBuilt;
     }
 }
