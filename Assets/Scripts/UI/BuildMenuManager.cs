@@ -12,6 +12,8 @@ public class BuildMenuManager : MonoBehaviour
     [SerializeField] private List<ResourceTextUI> _droneCostUI;
     //[SerializeField] private TextMeshProUGUI _additionalCostText;
 
+    private int _currentDroneIndex = 0;
+
     private UIStateManager _stateManager;
 
     private void Start()
@@ -19,6 +21,26 @@ public class BuildMenuManager : MonoBehaviour
         _stateManager = UIStateManager.GetInstance();
         _stateManager.OnStateChanged += OnUIStateChanged;
         gameObject.SetActive(false);
+    }
+
+    public void ShowNextDrone()
+    {
+        _currentDroneIndex++;
+        if (_currentDroneIndex >= _availableDrones.Count)
+        {
+            _currentDroneIndex = 0;
+        }
+        UpdateDroneShownInfo(_currentDroneIndex);
+    }
+
+    public void ShowPreviousDrone()
+    {
+        _currentDroneIndex--;
+        if (_currentDroneIndex < 0)
+        {
+            _currentDroneIndex = _availableDrones.Count - 1;
+        }
+        UpdateDroneShownInfo(_currentDroneIndex);
     }
 
     private void UpdateDroneShownInfo(int position)
