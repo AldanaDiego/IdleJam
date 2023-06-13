@@ -13,18 +13,17 @@ public class AssignMenuManager : MonoBehaviour
     [SerializeField] private Transform _availableSquadsList;
     [SerializeField] private Transform _areaAssignedSquadList;
 
-    private UIStateManager _stateManager;
     private AreaManager _areaManager;
     private SquadManager _squadManager;
     private int _currentAreaIndex;
 
     private void Start()
     {
-        _stateManager = UIStateManager.GetInstance();
         _areaManager = AreaManager.GetInstance();
         _squadManager = SquadManager.GetInstance();
-        _stateManager.OnStateChanged += OnUIStateChanged;
         SquadPreview.OnSquadPreviewClicked += OnSquadPreviewClicked;
+        MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
+        menuBehaviour.OnShow = OnShow;
         gameObject.SetActive(false);
     }
 
@@ -63,19 +62,11 @@ public class AssignMenuManager : MonoBehaviour
         }
     }
 
-    private void OnUIStateChanged(object sender, UIStateManager.GameState newState)
+    private void OnShow()
     {
-        if (newState == UIStateManager.GameState.ASSIGN)
-        {
-            gameObject.SetActive(true);
-            _currentAreaIndex = 0;
-            UpdateAreaInfo();
-            UpdateAvailableSquads();
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        _currentAreaIndex = 0;
+        UpdateAreaInfo();
+        UpdateAvailableSquads();
     }
 
     private void OnSquadPreviewClicked(object sender, Squad squad)
@@ -94,7 +85,6 @@ public class AssignMenuManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        _stateManager.OnStateChanged -= OnUIStateChanged;
         SquadPreview.OnSquadPreviewClicked -= OnSquadPreviewClicked;
     }
 }

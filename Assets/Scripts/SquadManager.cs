@@ -61,6 +61,18 @@ public class SquadManager : Singleton<SquadManager>
         return false;
     }
 
+    public bool HasAssignedSquads()
+    {
+        foreach (Squad squad in _squads)
+        {
+            if (squad.GetArea() != -1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Squad> GetUnassignedSquads()
     {
         return _squads.FindAll(squad => (squad.GetDroneCount() > 1 && squad.GetArea() == -1));   

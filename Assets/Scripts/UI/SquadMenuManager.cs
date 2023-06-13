@@ -12,7 +12,6 @@ public class SquadMenuManager : MonoBehaviour
     [SerializeField] private AvailableDroneImage _availableDroneImagePrefab;
     [SerializeField] private SquadDroneImage _squadDroneImagePrefab;
 
-    private UIStateManager _stateManager;
     private SquadManager _squadManager;
     private DroneManager _droneManager;
     private int _squadCount;
@@ -22,14 +21,14 @@ public class SquadMenuManager : MonoBehaviour
 
     private void Start()
     {
-        _stateManager = UIStateManager.GetInstance();
         _squadManager = SquadManager.GetInstance();
         _droneManager = DroneManager.GetInstance();
-        _stateManager.OnStateChanged += OnUIStateChanged;
         AvailableDroneImage.OnAvailableDroneClicked += OnAvailableDroneClicked;
         SquadDroneImage.OnSquadDroneClicked += OnSquadDroneClicked;
         _transparent = Color.white;
         _transparent.a = 0f;
+        MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
+        menuBehaviour.OnShow = OnShow;
         gameObject.SetActive(false);
     }
 
@@ -81,20 +80,12 @@ public class SquadMenuManager : MonoBehaviour
         }
     }
 
-    private void OnUIStateChanged(object sender, UIStateManager.GameState newState)
+    private void OnShow()
     {
-        if (newState == UIStateManager.GameState.SQUAD)
-        {
-            gameObject.SetActive(true);
-            _squadCount = _squadManager.GetSquadCount();
-            _currentSquadIndex = 0;
-            UpdateAvailableList();
-            UpdateSquadMenu();
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        _squadCount = _squadManager.GetSquadCount();
+        _currentSquadIndex = 0;
+        UpdateAvailableList();
+        UpdateSquadMenu();
     }
 
     private void OnAvailableDroneClicked(object sender, Drone drone)
@@ -122,7 +113,6 @@ public class SquadMenuManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        _stateManager.OnStateChanged -= OnUIStateChanged;
         AvailableDroneImage.OnAvailableDroneClicked -= OnAvailableDroneClicked;
         SquadDroneImage.OnSquadDroneClicked -= OnSquadDroneClicked;
     }

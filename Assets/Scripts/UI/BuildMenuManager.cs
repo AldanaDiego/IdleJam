@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class BuildMenuManager : MonoBehaviour
 {
@@ -16,15 +17,14 @@ public class BuildMenuManager : MonoBehaviour
     private ResourceStock _stock;
     private DroneManager _droneManager;
     private int _currentDroneIndex = 0;
-    private UIStateManager _stateManager;
 
     private void Start()
     {
         _stock = ResourceStock.GetInstance();
         _droneManager = DroneManager.GetInstance();
-        _stateManager = UIStateManager.GetInstance();
-        _stateManager.OnStateChanged += OnUIStateChanged;
         _stock.OnResourcesStockChanged += OnResourcesStockChanged;
+        MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
+        menuBehaviour.OnShow = OnShow;
         gameObject.SetActive(false);
     }
 
@@ -88,18 +88,10 @@ public class BuildMenuManager : MonoBehaviour
         _buildButton.interactable = _stock.CanBuildDrone(_availableDrones[_currentDroneIndex]);
     }
 
-    private void OnUIStateChanged(object sender, UIStateManager.GameState newState)
+    private void OnShow()
     {
-        if (newState == UIStateManager.GameState.BUILD)
-        {
-            gameObject.SetActive(true);
-            _currentDroneIndex = 0;
-            UpdateDroneShownInfo();
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        _currentDroneIndex = 0;
+        UpdateDroneShownInfo();
     }
 
     private void OnResourcesStockChanged(object sender, Dictionary<ResourceData, int> newstocks)
@@ -109,7 +101,6 @@ public class BuildMenuManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        _stateManager.OnStateChanged -= OnUIStateChanged;
         _stock.OnResourcesStockChanged -= OnResourcesStockChanged;
     }
 }
