@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ca969d50f7dec84983e2a54d4e2a385, type: 3}
-  m_Name: EnergyResource
+  m_Name: InstrumentResource
   m_EditorClassIdentifier: 
-  Name: Energy
+  Name: Instruments
   IsBasicResource: 1

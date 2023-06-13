@@ -6,4 +6,5 @@ using UnityEngine;
 public class ResourceData : ScriptableObject
 {
     public string Name;
+    public bool IsBasicResource;
 }

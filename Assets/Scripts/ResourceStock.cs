@@ -16,7 +16,7 @@ public class ResourceStock : Singleton<ResourceStock>
         _stock = new Dictionary<ResourceData, int>();
         foreach (ResourceData resource in _resourceList)
         {
-            _stock[resource] = 10; //TODO should be zero but testing xd
+            _stock[resource] = (resource.IsBasicResource ? 10 : 2); //TODO SHOULD BE 0
         }
     }
 
@@ -32,9 +32,9 @@ public class ResourceStock : Singleton<ResourceStock>
 
     public bool CanBuildDrone(DroneData drone)
     {
-        foreach (var stock in _stock)
+        foreach (var cost in drone.Cost)
         {
-            if (drone.Cost[stock.Key] > stock.Value)
+            if (cost.Value > _stock[cost.Key])
             {
                 return false;
             }

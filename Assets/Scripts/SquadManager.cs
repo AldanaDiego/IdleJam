@@ -51,6 +51,31 @@ public class SquadManager : Singleton<SquadManager>
         _squads[squad].Remove(drone);
     }
 
+    public bool HasReadySquads()
+    {
+        foreach (List<Drone> squad in _squads)
+        {
+            if (squad.Count > 1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<int> GetReadySquads()
+    {
+        List<int> readySquads = new List<int>();
+        for (int i = 0; i < _squads.Count; i++)
+        {
+            if (_squads[i].Count > 1)
+            {
+                readySquads.Add(i);
+            }
+        }
+        return readySquads;
+    }
+
     private void OnDroneBuilt(object sender, DroneData data)
     {
         if (data == _squadLeaderDrone)

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c53fd30cd50806f42b6ea81dbac9655d, type: 3}
-  m_Name: CargoDrone
+  m_Name: MutagenDrone
   m_EditorClassIdentifier: 
-  Name: Cargo Drone
-  Image: {fileID: 21300022, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+  Name: Mutagen Drone
+  Image: {fileID: 21300006, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
   IsLeader: 0
   _costArray:
   - Resource: {fileID: 11400000, guid: 60e869622f9315d4d862e7a7a09b3cb1, type: 2}
-    Amount: 2
-  - Resource: {fileID: 11400000, guid: 88cd34529c91e4b4d92f95a229e6d3d5, type: 2}
     Amount: 1
-  - Resource: {fileID: 11400000, guid: 3c669f0eb12122747bf45ffa4487a9dd, type: 2}
+  - Resource: {fileID: 11400000, guid: 88cd34529c91e4b4d92f95a229e6d3d5, type: 2}
     Amount: 3
+  - Resource: {fileID: 11400000, guid: 3c669f0eb12122747bf45ffa4487a9dd, type: 2}
+    Amount: 2

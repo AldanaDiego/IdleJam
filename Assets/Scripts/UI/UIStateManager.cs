@@ -6,7 +6,7 @@ using System;
 public class UIStateManager : Singleton<UIStateManager>
 {
     public event EventHandler<GameState> OnStateChanged;
-    public enum GameState { IDLE, BUILD, SQUAD };
+    public enum GameState { IDLE, BUILD, SQUAD, ASSIGN };
 
     public void ChangeGameState(GameState newState)
     {

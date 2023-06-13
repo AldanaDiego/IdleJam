@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SideMenuManager : MonoBehaviour
 {
     [SerializeField] private Button _squadsButton;
+    [SerializeField] private Button _assignButton;
 
     private UIStateManager _stateManager;
     private SquadManager _squadManager;
@@ -21,6 +22,7 @@ public class SideMenuManager : MonoBehaviour
     private void UpdateButtonsInteractable()
     {
         _squadsButton.interactable = _squadManager.GetSquadCount() > 0;
+        _assignButton.interactable = _squadManager.HasReadySquads();
     }
 
     private void OnUIStateChanged(object sender, UIStateManager.GameState newState)

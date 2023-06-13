@@ -11,6 +11,7 @@ public class BuildMenuManager : MonoBehaviour
     [SerializeField] private Image _droneImage;
     [SerializeField] private List<ResourceTextUI> _droneCostUI;
     [SerializeField] private Button _buildButton;
+    [SerializeField] private TextMeshProUGUI _additionalCostText;
 
     private ResourceStock _stock;
     private DroneManager _droneManager;
@@ -68,6 +69,16 @@ public class BuildMenuManager : MonoBehaviour
             else
             {
                 resourceText.TextUI.text = "x 0";
+            }
+        }
+
+        _additionalCostText.text = "None";
+        foreach (var cost in currentDrone.Cost)
+        {
+            if (!cost.Key.IsBasicResource)
+            {
+                _additionalCostText.text = $"{cost.Value} x {cost.Key.Name}";
+                break;
             }
         }
     }

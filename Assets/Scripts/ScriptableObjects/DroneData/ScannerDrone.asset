@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Scanner Drone
   Image: {fileID: 21300018, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+  IsLeader: 1
   _costArray:
   - Resource: {fileID: 11400000, guid: 60e869622f9315d4d862e7a7a09b3cb1, type: 2}
+    Amount: 1
+  - Resource: {fileID: 11400000, guid: 88cd34529c91e4b4d92f95a229e6d3d5, type: 2}
+    Amount: 1
+  - Resource: {fileID: 11400000, guid: 3c669f0eb12122747bf45ffa4487a9dd, type: 2}
+    Amount: 1
+  - Resource: {fileID: 11400000, guid: 8da93b6ac171f3740ac5707490e364f0, type: 2}
     Amount: 1
