@@ -5,13 +5,13 @@ using UnityEngine;
 public class SquadManager : Singleton<SquadManager>
 {
     [SerializeField] private DroneData _squadLeaderDrone;
-    private List<List<Drone>> _squads;
+    private List<Squad> _squads;
     private int _squadSizeLimit = 6;
 
     protected override void Awake()
     {
         base.Awake();
-        _squads = new List<List<Drone>>();
+        _squads = new List<Squad>();
     }
 
     private void Start()
@@ -31,7 +31,7 @@ public class SquadManager : Singleton<SquadManager>
 
     public List<Drone> GetSquad(int squadNumber)
     {
-        return _squads[squadNumber];
+        return _squads[squadNumber].GetDrones();
     }
 
     public DroneData GetSquadLeaderData()
@@ -41,21 +41,19 @@ public class SquadManager : Singleton<SquadManager>
 
     public void AddToSquad(Drone drone, int squad)
     {
-        drone.SetSquad(squad);
-        _squads[squad].Add(drone);
+        _squads[squad].AddDrone(drone);
     }
 
     public void RemoveFromSquad(Drone drone, int squad)
     {
-        drone.SetSquad(-1);
-        _squads[squad].Remove(drone);
+        _squads[squad].RemoveDrone(drone);
     }
 
     public bool HasReadySquads()
     {
-        foreach (List<Drone> squad in _squads)
+        foreach (Squad squad in _squads)
         {
-            if (squad.Count > 1)
+            if (squad.GetDroneCount() > 1)
             {
                 return true;
             }
@@ -63,24 +61,16 @@ public class SquadManager : Singleton<SquadManager>
         return false;
     }
 
-    public List<int> GetReadySquads()
+    public List<Squad> GetUnassignedSquads()
     {
-        List<int> readySquads = new List<int>();
-        for (int i = 0; i < _squads.Count; i++)
-        {
-            if (_squads[i].Count > 1)
-            {
-                readySquads.Add(i);
-            }
-        }
-        return readySquads;
+        return _squads.FindAll(squad => (squad.GetDroneCount() > 1 && squad.GetArea() == -1));   
     }
 
     private void OnDroneBuilt(object sender, DroneData data)
     {
         if (data == _squadLeaderDrone)
         {
-            _squads.Add(new List<Drone>());
+            _squads.Add(new Squad(_squads.Count));
             AddToSquad(new Drone(data), _squads.Count - 1);
         }
     }
