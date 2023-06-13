@@ -15,7 +15,6 @@ public class BuildMenuManager : MonoBehaviour
     private ResourceStock _stock;
     private DroneManager _droneManager;
     private int _currentDroneIndex = 0;
-
     private UIStateManager _stateManager;
 
     private void Start()
@@ -24,7 +23,7 @@ public class BuildMenuManager : MonoBehaviour
         _droneManager = DroneManager.GetInstance();
         _stateManager = UIStateManager.GetInstance();
         _stateManager.OnStateChanged += OnUIStateChanged;
-        _droneManager.OnDroneBuilt += OnDroneBuilt;
+        _stock.OnResourcesStockChanged += OnResourcesStockChanged;
         gameObject.SetActive(false);
     }
 
@@ -92,7 +91,7 @@ public class BuildMenuManager : MonoBehaviour
         }
     }
 
-    private void OnDroneBuilt(object sender, DroneData data)
+    private void OnResourcesStockChanged(object sender, Dictionary<ResourceData, int> newstocks)
     {
         UpdateBuildButton();
     }
@@ -100,6 +99,6 @@ public class BuildMenuManager : MonoBehaviour
     private void OnDestroy()
     {
         _stateManager.OnStateChanged -= OnUIStateChanged;
-        _droneManager.OnDroneBuilt -= OnDroneBuilt;
+        _stock.OnResourcesStockChanged -= OnResourcesStockChanged;
     }
 }

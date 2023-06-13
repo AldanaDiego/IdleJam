@@ -1,3 +1,4 @@
+using UnityEngine;
 using System;
 
 [Serializable]
@@ -9,4 +10,10 @@ public class Drone
     {
         _data = data;
     }
+
+    public Sprite GetImage()
+    {
+        return _data.Image;
+    }
+
 }

@@ -6,13 +6,15 @@ public class StatusBarStockUI : MonoBehaviour
 {
     [SerializeField] private List<ResourceTextUI> _availableResourcesText;
 
+    private ResourceStock _resourceStock;
+
     private void Start()
     {
-        ResourceStock stock = ResourceStock.GetInstance();
-        stock.OnResourcesStockChanged += OnResourcesStockChanged;
+        _resourceStock = ResourceStock.GetInstance();
+        _resourceStock.OnResourcesStockChanged += OnResourcesStockChanged;
         foreach (ResourceTextUI resourceText in _availableResourcesText)
         {
-            int amount = stock.GetResourceStock(resourceText.Resource);
+            int amount = _resourceStock.GetResourceStock(resourceText.Resource);
             resourceText.TextUI.text = $"x {amount}";
         }
     }
@@ -30,6 +32,6 @@ public class StatusBarStockUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        ResourceStock.GetInstance().OnResourcesStockChanged -= OnResourcesStockChanged;
+        _resourceStock.OnResourcesStockChanged -= OnResourcesStockChanged;
     }
 }

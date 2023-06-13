@@ -1,20 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SideMenuManager : MonoBehaviour
 {
+    [SerializeField] private Button _squadsButton;
+
     private UIStateManager _stateManager;
-    
+    private SquadManager _squadManager;
+
     private void Start()
     {
         _stateManager = UIStateManager.GetInstance();
+        _squadManager = SquadManager.GetInstance();
         _stateManager.OnStateChanged += OnUIStateChanged;
+        UpdateButtonsInteractable();
+    }
+
+    private void UpdateButtonsInteractable()
+    {
+        _squadsButton.interactable = _squadManager.GetSquadCount() > 0;
     }
 
     private void OnUIStateChanged(object sender, UIStateManager.GameState newState)
     {
-        gameObject.SetActive((newState == UIStateManager.GameState.IDLE));
+        if (newState == UIStateManager.GameState.IDLE)
+        {
+            gameObject.SetActive(true);
+            UpdateButtonsInteractable();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnDestroy()

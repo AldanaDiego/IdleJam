@@ -5,6 +5,7 @@ using System;
 
 public class DroneManager : Singleton<DroneManager>
 {
+    [SerializeField] private DroneData _squadLeaderDrone;
     private List<Drone> _drones;
     public event EventHandler<DroneData> OnDroneBuilt;
 
@@ -15,7 +16,15 @@ public class DroneManager : Singleton<DroneManager>
 
     public void BuildDrone(DroneData data)
     {
-        _drones.Add(new Drone(data));
+        if (data != _squadLeaderDrone)
+        {
+            _drones.Add(new Drone(data));
+        }
         OnDroneBuilt?.Invoke(this, data);
+    }
+
+    public List<Drone> GetDrones()
+    {
+        return _drones;
     }
 }

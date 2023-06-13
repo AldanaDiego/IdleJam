@@ -16,7 +16,7 @@ public class ResourceStock : Singleton<ResourceStock>
         _stock = new Dictionary<ResourceData, int>();
         foreach (ResourceData resource in _resourceList)
         {
-            _stock[resource] = 3; //TODO should be zero but testing xd
+            _stock[resource] = 4; //TODO should be zero but testing xd
         }
     }
 
