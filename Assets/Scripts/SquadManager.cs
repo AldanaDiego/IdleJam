@@ -6,7 +6,7 @@ public class SquadManager : Singleton<SquadManager>
 {
     [SerializeField] private DroneData _squadLeaderDrone;
     private List<List<Drone>> _squads;
-    private int _squadSizeLimit = 5;
+    private int _squadSizeLimit = 6;
 
     protected override void Awake()
     {
@@ -39,11 +39,24 @@ public class SquadManager : Singleton<SquadManager>
         return _squadLeaderDrone;
     }
 
+    public void AddToSquad(Drone drone, int squad)
+    {
+        drone.SetSquad(squad);
+        _squads[squad].Add(drone);
+    }
+
+    public void RemoveFromSquad(Drone drone, int squad)
+    {
+        drone.SetSquad(-1);
+        _squads[squad].Remove(drone);
+    }
+
     private void OnDroneBuilt(object sender, DroneData data)
     {
         if (data == _squadLeaderDrone)
         {
             _squads.Add(new List<Drone>());
+            AddToSquad(new Drone(data), _squads.Count - 1);
         }
     }
 

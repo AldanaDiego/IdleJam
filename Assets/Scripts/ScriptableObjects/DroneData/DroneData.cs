@@ -8,6 +8,7 @@ public class DroneData : ScriptableObject, ISerializationCallbackReceiver
     public string Name;
     public Sprite Image;
     public Dictionary<ResourceData, int> Cost;
+    public bool IsLeader;
 
     [SerializeField] private ResourceAmount[] _costArray;
 

@@ -27,4 +27,9 @@ public class DroneManager : Singleton<DroneManager>
     {
         return _drones;
     }
+
+    public List<Drone> GetAvailableDrones()
+    {
+        return _drones.FindAll(drone => drone.GetSquad() == -1);
+    }
 }

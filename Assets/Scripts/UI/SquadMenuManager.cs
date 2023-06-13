@@ -7,9 +7,10 @@ using TMPro;
 public class SquadMenuManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _squadNameText;
-    [SerializeField] private GridLayoutGroup _availableDronesList;
-    [SerializeField] private List<Image> _squadMembers;
-    [SerializeField] private Image _availableDroneImagePrefab;
+    [SerializeField] private Transform _availableDronesList;
+    [SerializeField] private Transform _squadDronesList;
+    [SerializeField] private AvailableDroneImage _availableDroneImagePrefab;
+    [SerializeField] private SquadDroneImage _squadDroneImagePrefab;
 
     private UIStateManager _stateManager;
     private SquadManager _squadManager;
@@ -25,6 +26,8 @@ public class SquadMenuManager : MonoBehaviour
         _squadManager = SquadManager.GetInstance();
         _droneManager = DroneManager.GetInstance();
         _stateManager.OnStateChanged += OnUIStateChanged;
+        AvailableDroneImage.OnAvailableDroneClicked += OnAvailableDroneClicked;
+        SquadDroneImage.OnSquadDroneClicked += OnSquadDroneClicked;
         _transparent = Color.white;
         _transparent.a = 0f;
         gameObject.SetActive(false);
@@ -52,32 +55,29 @@ public class SquadMenuManager : MonoBehaviour
 
     private void UpdateAvailableList()
     {
-        foreach (Drone drone in _droneManager.GetDrones())
+        foreach (Transform child in _availableDronesList)
         {
-            Image image = Instantiate(_availableDroneImagePrefab);
-            image.sprite = drone.GetImage();
-            image.transform.SetParent(_availableDronesList.transform);
+            Destroy(child.gameObject);
+        }
+        foreach (Drone drone in _droneManager.GetAvailableDrones())
+        {
+            AvailableDroneImage image = Instantiate(_availableDroneImagePrefab);
+            image.Setup(drone, _availableDronesList);
         }
     }
 
     private void UpdateSquadMenu()
     {
-        _squadNameText.text = "Squad " + _squadCount.ToString("D2");
-        _squadMembers[0].sprite = _squadManager.GetSquadLeaderData().Image;
-
-        int i = 1;
-        foreach (Drone drone in _squadManager.GetSquad(_currentSquadIndex))
+        _squadNameText.text = "Squad " + _currentSquadIndex.ToString("D2");
+        foreach (Transform child in _squadDronesList)
         {
-            _squadMembers[i].sprite = drone.GetImage();
-            _squadMembers[i].color = Color.white;
-            i++;
+            Destroy(child.gameObject);
         }
 
-        while (i <= _squadManager.GetSquadSizeLimit())
+        foreach (Drone drone in _squadManager.GetSquad(_currentSquadIndex))
         {
-            _squadMembers[i].sprite = null;
-            _squadMembers[i].color = _transparent;
-            i++;
+            SquadDroneImage image = Instantiate(_squadDroneImagePrefab);
+            image.Setup(drone, _squadDronesList);
         }
     }
 
@@ -97,8 +97,33 @@ public class SquadMenuManager : MonoBehaviour
         }
     }
 
+    private void OnAvailableDroneClicked(object sender, Drone drone)
+    {
+        int squadCurrentSize = _squadManager.GetSquad(_currentSquadIndex).Count;
+        if (squadCurrentSize < _squadManager.GetSquadSizeLimit())
+        {
+            _squadManager.AddToSquad(drone, _currentSquadIndex);
+            SquadDroneImage image = Instantiate(_squadDroneImagePrefab);
+            image.Setup(drone, _squadDronesList);
+            ((AvailableDroneImage) sender).Remove();
+        }
+    }
+
+    private void OnSquadDroneClicked(object sender, Drone drone)
+    {
+        if (!drone.IsSquadLeader())
+        {
+            _squadManager.RemoveFromSquad(drone, _currentSquadIndex);
+            AvailableDroneImage image = Instantiate(_availableDroneImagePrefab);
+            image.Setup(drone, _availableDronesList);
+            ((SquadDroneImage) sender).Remove();
+        }
+    }
+
     private void OnDestroy()
     {
         _stateManager.OnStateChanged -= OnUIStateChanged;
+        AvailableDroneImage.OnAvailableDroneClicked -= OnAvailableDroneClicked;
+        SquadDroneImage.OnSquadDroneClicked -= OnSquadDroneClicked;
     }
 }
