@@ -26,6 +26,16 @@ public class Area
         return _biome.Details;
     }
 
+    public List<ExplorationEventChance> GetBiomeEvents()
+    {
+        return _biome.ExplorationEventChances;
+    }
+
+    public List<ResourceChance> GetBiomeResourceChances()
+    {
+        return _biome.ResourceChances;
+    }
+
     public List<Squad> GetSquads()
     {
         return _squads;

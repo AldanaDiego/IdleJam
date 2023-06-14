@@ -7,7 +7,7 @@ using System;
 
 public class BuildMenuManager : MonoBehaviour
 {
-    [SerializeField] private List<DroneData> _availableDrones;
+    [SerializeField] private DroneDB _droneDB;
     [SerializeField] private TextMeshProUGUI _droneNameText;
     [SerializeField] private Image _droneImage;
     [SerializeField] private List<ResourceTextUI> _droneCostUI;
@@ -16,6 +16,7 @@ public class BuildMenuManager : MonoBehaviour
 
     private ResourceStock _stock;
     private DroneManager _droneManager;
+    private List<DroneData> _availableDrones;
     private int _currentDroneIndex = 0;
 
     private void Awake()
@@ -30,6 +31,7 @@ public class BuildMenuManager : MonoBehaviour
         _stock = ResourceStock.GetInstance();
         _droneManager = DroneManager.GetInstance();
         _stock.OnResourcesStockChanged += OnResourcesStockChanged;
+        _availableDrones = _droneDB.Drones;
     }
 
     public void ShowNextDrone()

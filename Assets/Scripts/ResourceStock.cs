@@ -5,7 +5,7 @@ using System;
 
 public class ResourceStock : Singleton<ResourceStock>
 {
-    [SerializeField] private List<ResourceData> _resourceList;
+    [SerializeField] private ResourceDB _resourceDB;
     private Dictionary<ResourceData, int> _stock;
 
     public event EventHandler<Dictionary<ResourceData, int>> OnResourcesStockChanged;
@@ -14,7 +14,7 @@ public class ResourceStock : Singleton<ResourceStock>
     {
         base.Awake();
         _stock = new Dictionary<ResourceData, int>();
-        foreach (ResourceData resource in _resourceList)
+        foreach (ResourceData resource in _resourceDB.Resources)
         {
             _stock[resource] = (resource.IsBasicResource ? 10 : 2); //TODO SHOULD BE 0
         }

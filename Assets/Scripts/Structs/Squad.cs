@@ -52,4 +52,9 @@ public class Squad
     {
         _area = newArea;
     }
+
+    public override string ToString()
+    {
+        return "Squad " + _squadNumber.ToString("D2");
+    }
 }

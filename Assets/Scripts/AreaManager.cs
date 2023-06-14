@@ -22,4 +22,9 @@ public class AreaManager : Singleton<AreaManager>
     {
         return _areas[index];
     }
+
+    public List<Area> GetAreas()
+    {
+        return _areas;
+    }
 }

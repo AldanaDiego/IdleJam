@@ -7,4 +7,6 @@ public class Biome : ScriptableObject
 {
     public string Name;
     public string Details;
+    public List<ExplorationEventChance> ExplorationEventChances;
+    public List<ResourceChance> ResourceChances;
 }
