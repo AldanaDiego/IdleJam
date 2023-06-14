@@ -17,14 +17,20 @@ public class AssignMenuManager : MonoBehaviour
     private SquadManager _squadManager;
     private int _currentAreaIndex;
 
-    private void Start()
+    private void Awake()
+    {
+        MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
+        menuBehaviour.OnShow = OnShow;
+        menuBehaviour.OnCreate = OnCreate;
+    }
+
+    private void OnCreate()
     {
         _areaManager = AreaManager.GetInstance();
         _squadManager = SquadManager.GetInstance();
         SquadPreview.OnSquadPreviewClicked += OnSquadPreviewClicked;
         MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
         menuBehaviour.OnShow = OnShow;
-        gameObject.SetActive(false);
     }
 
     private void UpdateAreaInfo()

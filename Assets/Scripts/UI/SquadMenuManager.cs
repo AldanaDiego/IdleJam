@@ -18,16 +18,20 @@ public class SquadMenuManager : MonoBehaviour
     private int _currentSquadSize;
     private Color _transparent;
 
-    private void Start()
+    private void Awake()
+    {
+        MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
+        menuBehaviour.OnShow = OnShow;
+        menuBehaviour.OnCreate = OnCreate;
+    }
+
+    private void OnCreate()
     {
         _squadManager = SquadManager.GetInstance();
         _droneManager = DroneManager.GetInstance();
         AvailableDroneImage.OnAvailableDroneClicked += OnAvailableDroneClicked;
         _transparent = Color.white;
         _transparent.a = 0f;
-        MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
-        menuBehaviour.OnShow = OnShow;
-        gameObject.SetActive(false);
     }
 
     public void ShowNextSquad()

@@ -18,14 +18,18 @@ public class BuildMenuManager : MonoBehaviour
     private DroneManager _droneManager;
     private int _currentDroneIndex = 0;
 
-    private void Start()
+    private void Awake()
+    {
+        MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
+        menuBehaviour.OnShow = OnShow;
+        menuBehaviour.OnCreate = OnCreate;
+    }
+
+    private void OnCreate()
     {
         _stock = ResourceStock.GetInstance();
         _droneManager = DroneManager.GetInstance();
         _stock.OnResourcesStockChanged += OnResourcesStockChanged;
-        MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
-        menuBehaviour.OnShow = OnShow;
-        gameObject.SetActive(false);
     }
 
     public void ShowNextDrone()

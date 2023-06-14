@@ -10,27 +10,37 @@ public class MainMenuSectionBehaviour : MonoBehaviour
     public delegate void OnShowDelegate();
     public OnShowDelegate OnShow;
 
+    public delegate void OnCreateDelegate();
+    public OnShowDelegate OnCreate;
+
     private void Start()
     {
         _stateManager = UIStateManager.GetInstance();
         _stateManager.OnStateChanged += OnUIStateChanged;
+        OnCreate?.Invoke(); //Use OnCreate instead of Start on UI with this script to ensure it runs properly before hiding
+        Hide();
+    }
+
+    private void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    private void Hide()
+    {
+        gameObject.SetActive(false);
     }
 
     private void OnUIStateChanged(object sender, UIStateManager.GameState newState)
     {
         if (newState == _stateToShow)
         {
-            gameObject.SetActive(true);
+            Show();
             OnShow?.Invoke();
         }
         else
         {
-            gameObject.SetActive(false);
+            Hide();
         }
-    }
-
-    private void OnDestroy()
-    {
-        _stateManager.OnStateChanged -= OnUIStateChanged;
     }
 }
