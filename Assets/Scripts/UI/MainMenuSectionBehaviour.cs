@@ -13,7 +13,6 @@ public class MainMenuSectionBehaviour : MonoBehaviour
     private void Start()
     {
         _stateManager = UIStateManager.GetInstance();
-        _stateManager = UIStateManager.GetInstance();
         _stateManager.OnStateChanged += OnUIStateChanged;
     }
 

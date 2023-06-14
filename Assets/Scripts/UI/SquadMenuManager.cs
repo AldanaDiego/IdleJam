@@ -10,7 +10,6 @@ public class SquadMenuManager : MonoBehaviour
     [SerializeField] private Transform _availableDronesList;
     [SerializeField] private Transform _squadDronesList;
     [SerializeField] private AvailableDroneImage _availableDroneImagePrefab;
-    [SerializeField] private SquadDroneImage _squadDroneImagePrefab;
 
     private SquadManager _squadManager;
     private DroneManager _droneManager;
@@ -24,7 +23,6 @@ public class SquadMenuManager : MonoBehaviour
         _squadManager = SquadManager.GetInstance();
         _droneManager = DroneManager.GetInstance();
         AvailableDroneImage.OnAvailableDroneClicked += OnAvailableDroneClicked;
-        SquadDroneImage.OnSquadDroneClicked += OnSquadDroneClicked;
         _transparent = Color.white;
         _transparent.a = 0f;
         MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
@@ -75,7 +73,7 @@ public class SquadMenuManager : MonoBehaviour
 
         foreach (Drone drone in _squadManager.GetSquad(_currentSquadIndex))
         {
-            SquadDroneImage image = Instantiate(_squadDroneImagePrefab);
+            AvailableDroneImage image = Instantiate(_availableDroneImagePrefab);
             image.Setup(drone, _squadDronesList);
         }
     }
@@ -91,29 +89,20 @@ public class SquadMenuManager : MonoBehaviour
     private void OnAvailableDroneClicked(object sender, Drone drone)
     {
         int squadCurrentSize = _squadManager.GetSquad(_currentSquadIndex).Count;
-        if (squadCurrentSize < _squadManager.GetSquadSizeLimit())
-        {
-            _squadManager.AddToSquad(drone, _currentSquadIndex);
-            SquadDroneImage image = Instantiate(_squadDroneImagePrefab);
-            image.Setup(drone, _squadDronesList);
-            ((AvailableDroneImage) sender).Remove();
-        }
-    }
-
-    private void OnSquadDroneClicked(object sender, Drone drone)
-    {
-        if (!drone.IsSquadLeader())
+        if (drone.GetSquad() != -1)
         {
             _squadManager.RemoveFromSquad(drone, _currentSquadIndex);
-            AvailableDroneImage image = Instantiate(_availableDroneImagePrefab);
-            image.Setup(drone, _availableDronesList);
-            ((SquadDroneImage) sender).Remove();
+            ((AvailableDroneImage) sender).MoveTo(_availableDronesList);
+        }
+        else if (squadCurrentSize < _squadManager.GetSquadSizeLimit())
+        {
+            _squadManager.AddToSquad(drone, _currentSquadIndex);
+            ((AvailableDroneImage) sender).MoveTo(_squadDronesList);
         }
     }
 
     private void OnDestroy()
     {
         AvailableDroneImage.OnAvailableDroneClicked -= OnAvailableDroneClicked;
-        SquadDroneImage.OnSquadDroneClicked -= OnSquadDroneClicked;
     }
 }

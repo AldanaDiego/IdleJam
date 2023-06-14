@@ -7830,7 +7830,6 @@ MonoBehaviour:
   _availableDronesList: {fileID: 1858709918}
   _squadDronesList: {fileID: 1129879468}
   _availableDroneImagePrefab: {fileID: -6847047604135312399, guid: 86fb611a4f8c2254e9cceb4cd8d9a916, type: 3}
-  _squadDroneImagePrefab: {fileID: 7398017724134738047, guid: e1b3e098753e5c842bf1e6788db708b9, type: 3}
 --- !u!114 &1311497097
 MonoBehaviour:
   m_ObjectHideFlags: 0

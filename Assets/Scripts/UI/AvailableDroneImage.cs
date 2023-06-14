@@ -7,24 +7,34 @@ using System;
 public class AvailableDroneImage : MonoBehaviour
 {
     [SerializeField] private Image _image;
+    [SerializeField] private Button _button;
     private Drone _drone;
+    private Transform _transform;
 
     public static event EventHandler<Drone> OnAvailableDroneClicked;
 
     public void Setup(Drone drone, Transform parent)
     {
         _drone = drone;
+        _transform = transform;
         _image.sprite = drone.GetImage();
-        transform.SetParent(parent);
+        _transform.SetParent(parent);
+        if (drone.IsSquadLeader())
+        {
+            _button.interactable = false;
+        }
     }
 
-    public void Remove()
+    public void MoveTo(Transform parent)
     {
-        Destroy(gameObject);
+        _transform.SetParent(parent);
     }
 
     public void OnClicked()
     {
-        OnAvailableDroneClicked?.Invoke(this, _drone);
+        if (!_drone.IsSquadLeader())
+        {
+            OnAvailableDroneClicked?.Invoke(this, _drone);
+        }
     }
 }
