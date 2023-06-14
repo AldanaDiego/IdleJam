@@ -41,7 +41,6 @@ public class AssignMenuManager : MonoBehaviour
         _areaBiome.text = $"Biome: {area.GetBiomeName()}";
         _areaBiomeDetails.text = area.GetBiomeDetails();
 
-
         foreach (Transform child in _areaAssignedSquadList)
         {
             Destroy(child.gameObject);

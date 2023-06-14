@@ -20,6 +20,7 @@ public class ExploreLogManager : MonoBehaviour
         MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
         menuBehaviour.OnCreate = OnCreate;
         menuBehaviour.OnShow = OnShow;
+        menuBehaviour.OnHide = OnHide;
     }
 
     private void OnCreate()
@@ -31,6 +32,11 @@ public class ExploreLogManager : MonoBehaviour
     private void OnShow()
     {
         _backButton.interactable = false;
+    }
+
+    private void OnHide()
+    {
+        OnExploreLogFinished?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnExplorationEventsTriggered(object sender, List<SquadExplorationEvent> squadEvents)
@@ -53,11 +59,6 @@ public class ExploreLogManager : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         _backButton.interactable = true;
-    }
-
-    public void OnReturnButtonClicked()
-    {
-        OnExploreLogFinished?.Invoke(this, EventArgs.Empty);
     }
 
     private void OnDestroy()

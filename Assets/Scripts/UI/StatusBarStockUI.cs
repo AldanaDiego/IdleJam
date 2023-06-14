@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StatusBarStockUI : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class StatusBarStockUI : MonoBehaviour
     {
         _resourceStock = ResourceStock.GetInstance();
         _resourceStock.OnResourcesStockChanged += OnResourcesStockChanged;
+        UpdateStockVisuals();
+    }
+
+    private void UpdateStockVisuals()
+    {
         foreach (ResourceTextUI resourceText in _availableResourcesText)
         {
             int amount = _resourceStock.GetResourceStock(resourceText.Resource);
@@ -19,15 +25,9 @@ public class StatusBarStockUI : MonoBehaviour
         }
     }
 
-    private void OnResourcesStockChanged(object sender, Dictionary<ResourceData, int> newStocks)
+    private void OnResourcesStockChanged(object sender, EventArgs empty)
     {
-        foreach (ResourceTextUI resourceText in _availableResourcesText)
-        {
-            if (newStocks.TryGetValue(resourceText.Resource, out int amount))
-            {
-                resourceText.TextUI.text = $"x {amount}";
-            }
-        }
+        UpdateStockVisuals();
     }
 
     private void OnDestroy()

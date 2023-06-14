@@ -78,6 +78,11 @@ public class SquadManager : Singleton<SquadManager>
         return _squads.FindAll(squad => (squad.GetDroneCount() > 1 && squad.GetArea() == -1));   
     }
 
+    public List<Squad> GetAssignedSquads()
+    {
+        return _squads.FindAll(squad => (squad.GetArea() != -1));   
+    }
+
     private void OnDroneBuilt(object sender, DroneData data)
     {
         if (data == _squadLeaderDrone)

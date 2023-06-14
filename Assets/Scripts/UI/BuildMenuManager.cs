@@ -100,7 +100,7 @@ public class BuildMenuManager : MonoBehaviour
         UpdateDroneShownInfo();
     }
 
-    private void OnResourcesStockChanged(object sender, Dictionary<ResourceData, int> newstocks)
+    private void OnResourcesStockChanged(object sender, EventArgs empty)
     {
         UpdateBuildButton();
     }

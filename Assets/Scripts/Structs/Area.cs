@@ -52,4 +52,9 @@ public class Area
         squad.SetArea(-1);
         _squads.Remove(squad);
     }
+
+    public override string ToString()
+    {
+        return "Area " + _areaNumber.ToString("D2");
+    }
 }

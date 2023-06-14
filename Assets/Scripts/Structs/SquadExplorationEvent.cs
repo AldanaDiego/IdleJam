@@ -17,8 +17,8 @@ public class SquadExplorationEvent
     {
         if (ExplorationEvent == null)
         {
-            return $">{Squad} is exploring normally";
+            return $"> {Squad} is exploring normally";
         }
-        return ExplorationEvent.Description.Replace("SQUAD", Squad.ToString());
+        return "> " + ExplorationEvent.Description.Replace("SQUAD", Squad.ToString());
     }
 }

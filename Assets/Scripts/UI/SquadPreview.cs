@@ -21,7 +21,7 @@ public class SquadPreview : MonoBehaviour
         _transform = transform;
         _transform.SetParent(parent);
         _squad = squad;
-        _squadNameText.text = "Squad " + squad.GetSquadNumber().ToString("D2");
+        _squadNameText.text = squad.ToString();
         _transparent = Color.white;
         _transparent.a = 0f;
 

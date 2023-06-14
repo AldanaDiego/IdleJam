@@ -15,7 +15,6 @@ public class ExplorationManager : Singleton<ExplorationManager>
         _stateManager = UIStateManager.GetInstance();
         _areaManager = AreaManager.GetInstance();
         _stateManager.OnStateChanged += OnStateChanged;
-        ExploreLogManager.OnExploreLogFinished += OnExploreLogFinished;
     }
 
     private void GenerateExploringEvents()
@@ -56,20 +55,21 @@ public class ExplorationManager : Singleton<ExplorationManager>
         List<ResourceChance> basicResourceChances = area.GetBiomeResourceChances().FindAll(chance => chance.Resource.IsBasicResource);
         foreach (Drone drone in squad.GetDrones())
         {
-            //TODO check if drone can mine
-            float totalChance = UnityEngine.Random.value;
-            ResourceData mineResource = null;
-            foreach (ResourceChance resourceChance in basicResourceChances)
+            if (drone.GetMiningSpeed() > 0)
             {
-                totalChance -= resourceChance.Chance;
-                if (totalChance <= 0f)
+                float totalChance = UnityEngine.Random.value;
+                ResourceData mineResource = null;
+                foreach (ResourceChance resourceChance in basicResourceChances)
                 {
-                    mineResource = resourceChance.Resource;
-                    break;
+                    totalChance -= resourceChance.Chance;
+                    if (totalChance <= 0f)
+                    {
+                        mineResource = resourceChance.Resource;
+                        break;
+                    }
                 }
+                drone.AddCargo(mineResource);
             }
-
-            //TODO Add resources to Drone!
         }
     }
 
@@ -90,15 +90,8 @@ public class ExplorationManager : Singleton<ExplorationManager>
         }
     }
 
-    private void OnExploreLogFinished(object sender, EventArgs empty)
-    {
-        //TODO add collected resources to stock
-        _stateManager.ChangeGameState(UIStateManager.GameState.IDLE);
-    }
-
     private void OnDestroy()
     {
         _stateManager.OnStateChanged -= OnStateChanged;
-        ExploreLogManager.OnExploreLogFinished -= OnExploreLogFinished;
     }
 }

@@ -7,11 +7,10 @@ public class MainMenuSectionBehaviour : MonoBehaviour
     [SerializeField] private UIStateManager.GameState _stateToShow;
     private UIStateManager _stateManager;
 
-    public delegate void OnShowDelegate();
-    public OnShowDelegate OnShow;
-
-    public delegate void OnCreateDelegate();
-    public OnShowDelegate OnCreate;
+    public delegate void OnActionDelegate();
+    public OnActionDelegate OnShow;
+    public OnActionDelegate OnHide;
+    public OnActionDelegate OnCreate;
 
     private void Start()
     {
@@ -41,6 +40,7 @@ public class MainMenuSectionBehaviour : MonoBehaviour
         else
         {
             Hide();
+            OnHide?.Invoke();
         }
     }
 }

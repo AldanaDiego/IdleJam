@@ -8,8 +8,16 @@ public class UIStateManager : Singleton<UIStateManager>
     public event EventHandler<GameState> OnStateChanged;
     public enum GameState { IDLE, BUILD, SQUAD, ASSIGN, DEPLOY, EXPLORING };
 
+    private GameState _currentGameState = GameState.IDLE;
+
     public void ChangeGameState(GameState newState)
     {
+        _currentGameState = newState;
         OnStateChanged?.Invoke(this, newState);
+    }
+
+    public GameState GetGameState()
+    {
+        return _currentGameState;
     }
 }
