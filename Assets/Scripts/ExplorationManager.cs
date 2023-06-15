@@ -55,7 +55,7 @@ public class ExplorationManager : Singleton<ExplorationManager>
         List<ResourceChance> basicResourceChances = area.GetBiomeResourceChances().FindAll(chance => chance.Resource.IsBasicResource);
         foreach (Drone drone in squad.GetDrones())
         {
-            if (drone.GetMiningSpeed() > 0)
+            if (drone.CanMine())
             {
                 float totalChance = UnityEngine.Random.value;
                 ResourceData mineResource = null;
@@ -76,10 +76,63 @@ public class ExplorationManager : Singleton<ExplorationManager>
     private void HandleExplorationEvent(ExplorationEvent explorationEvent, Squad squad, Area area)
     {
         //TODO this gonna be a big one D:
-        if (explorationEvent == null)
+
+        bool canSquadMine = true;
+        if (explorationEvent != null)
+        {
+            switch (explorationEvent.ExplorationEventType)
+            {
+                case ExplorationEvent.EventType.RARE_ITEM:
+                    canSquadMine = MineRareResource(squad, area);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (canSquadMine)
         {
             MineResources(squad, area);
         }
+    }
+
+    private bool MineRareResource(Squad squad, Area area)
+    {
+        List<ResourceChance> rareResourceChances = area.GetBiomeResourceChances().FindAll(chance => !chance.Resource.IsBasicResource);
+        float totalChance = UnityEngine.Random.value;
+        ResourceData mineResource = null;
+        foreach (ResourceChance resourceChance in rareResourceChances)
+        {
+            totalChance -= resourceChance.Chance;
+            if (totalChance <= 0f)
+            {
+                mineResource = resourceChance.Resource;
+                break;
+            }
+        }
+
+        if (mineResource.IsSingleFind)
+        {
+            foreach (Drone drone in squad.GetDrones())
+            {
+                if (drone.AddCargo(mineResource, 1))
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            foreach (Drone drone in squad.GetDrones())
+            {
+                if (drone.CanMine())
+                {
+                    drone.AddCargo(mineResource);
+                }
+            }
+        }
+
+        return mineResource.IsSingleFind;
     }
 
     private void OnStateChanged(object sender, UIStateManager.GameState newState)
