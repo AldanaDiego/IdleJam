@@ -37,18 +37,18 @@ public class ExploreLogManager : MonoBehaviour
     private void OnHide()
     {
         OnExploreLogFinished?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void OnExplorationEventsTriggered(object sender, List<SquadExplorationEvent> squadEvents)
-    {
         foreach (Transform child in _exploreLogList)
         {
             Destroy(child.gameObject);
         }
+    }
+
+    private void OnExplorationEventsTriggered(object sender, SquadExplorationEvent[] squadEvents)
+    {
         StartCoroutine(ShowLogMessages(squadEvents));
     }
 
-    private IEnumerator ShowLogMessages(List<SquadExplorationEvent> squadEvents)
+    private IEnumerator ShowLogMessages(SquadExplorationEvent[] squadEvents)
     {
         foreach(SquadExplorationEvent squadEvent in squadEvents)
         {

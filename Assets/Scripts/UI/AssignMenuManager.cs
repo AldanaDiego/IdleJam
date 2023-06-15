@@ -29,8 +29,26 @@ public class AssignMenuManager : MonoBehaviour
         _areaManager = AreaManager.GetInstance();
         _squadManager = SquadManager.GetInstance();
         SquadPreview.OnSquadPreviewClicked += OnSquadPreviewClicked;
-        MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
-        menuBehaviour.OnShow = OnShow;
+    }
+
+    public void ShowNextArea()
+    {
+        _currentAreaIndex++;
+        if (_currentAreaIndex >= _areaManager.GetAreaCount())
+        {
+            _currentAreaIndex = 0;
+        }
+        UpdateAreaInfo();
+    }
+
+    public void ShowPreviousArea()
+    {
+        _currentAreaIndex--;
+        if (_currentAreaIndex < 0)
+        {
+            _currentAreaIndex = _areaManager.GetAreaCount() - 1;
+        }
+        UpdateAreaInfo();
     }
 
     private void UpdateAreaInfo()

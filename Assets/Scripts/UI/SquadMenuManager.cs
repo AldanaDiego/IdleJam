@@ -24,6 +24,7 @@ public class SquadMenuManager : MonoBehaviour
         MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
         menuBehaviour.OnShow = OnShow;
         menuBehaviour.OnCreate = OnCreate;
+        menuBehaviour.OnHide = OnHide;
     }
 
     private void OnCreate()
@@ -57,10 +58,6 @@ public class SquadMenuManager : MonoBehaviour
 
     private void UpdateAvailableList()
     {
-        foreach (Transform child in _availableDronesList)
-        {
-            Destroy(child.gameObject);
-        }
         foreach (Drone drone in _droneManager.GetAvailableDrones())
         {
             AvailableDroneImage image = Instantiate(_availableDroneImagePrefab);
@@ -91,6 +88,14 @@ public class SquadMenuManager : MonoBehaviour
         _currentSquadIndex = 0;
         UpdateAvailableList();
         UpdateSquadMenu();
+    }
+
+    public void OnHide()
+    {
+        foreach (Transform child in _availableDronesList)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     private void OnAvailableDroneClicked(object sender, Drone drone)

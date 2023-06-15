@@ -5,34 +5,46 @@ using System;
 
 public class ExplorationManager : Singleton<ExplorationManager>
 {
+    [SerializeField] private ExplorationEvent _defaultEvent;
+
     private UIStateManager _stateManager;
     private AreaManager _areaManager;
+    private SquadManager _squadManager;
 
-    public event EventHandler<List<SquadExplorationEvent>> OnExplorationEventsTriggered;
+    private const int EVENTS_PER_DEPLOY = 3;
+
+    public event EventHandler<SquadExplorationEvent[]> OnExplorationEventsTriggered;
 
     private void Start()
     {
         _stateManager = UIStateManager.GetInstance();
         _areaManager = AreaManager.GetInstance();
+        _squadManager = SquadManager.GetInstance();
         _stateManager.OnStateChanged += OnStateChanged;
     }
 
     private void GenerateExploringEvents()
     {
-        List<SquadExplorationEvent> triggeredEvents = new List<SquadExplorationEvent>();
+        //List<SquadExplorationEvent> triggeredEvents = new List<SquadExplorationEvent>();
+        int squadCount = _squadManager.GetAssignedSquads().Count;
+        SquadExplorationEvent[] triggeredEvents = new SquadExplorationEvent[squadCount * EVENTS_PER_DEPLOY];
         foreach (Area area in _areaManager.GetAreas())
         {
             foreach (Squad squad in area.GetSquads())
             {
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < EVENTS_PER_DEPLOY; i++)
                 {
-                    ExplorationEvent explorationEvent = PickEventByChance(area.GetBiomeEvents());
-                    HandleExplorationEvent(explorationEvent, squad, area);
-                    triggeredEvents.Add(new SquadExplorationEvent(squad, explorationEvent));
+                    int index = squad.GetSquadNumber() + (i * squadCount);
+                    SquadExplorationEvent explorationEvent = new SquadExplorationEvent(squad, area, PickEventByChance(area.GetBiomeEvents()));
+                    triggeredEvents[index] = explorationEvent;
                 }
             }
         }
-        //TODO Shuffle Events
+
+        foreach (SquadExplorationEvent squadEvent in triggeredEvents)
+        {
+            HandleSquadExplorationEvent(squadEvent);
+        }
         OnExplorationEventsTriggered?.Invoke(this, triggeredEvents);
     }
 
@@ -47,7 +59,7 @@ public class ExplorationManager : Singleton<ExplorationManager>
                 return eventChance.Event;
             }
         }
-        return null;
+        return _defaultEvent;
     }
 
     private void MineResources(Squad squad, Area area)
@@ -73,26 +85,36 @@ public class ExplorationManager : Singleton<ExplorationManager>
         }
     }
 
-    private void HandleExplorationEvent(ExplorationEvent explorationEvent, Squad squad, Area area)
+    private void HandleSquadExplorationEvent(SquadExplorationEvent squadEvent)
     {
         //TODO this gonna be a big one D:
-
         bool canSquadMine = true;
-        if (explorationEvent != null)
+        
+        switch (squadEvent.ExplorationEvent.ExplorationEventType)
         {
-            switch (explorationEvent.ExplorationEventType)
-            {
-                case ExplorationEvent.EventType.RARE_ITEM:
-                    canSquadMine = MineRareResource(squad, area);
-                    break;
-                default:
-                    break;
-            }
+            case ExplorationEvent.EventType.RARE_ITEM:
+                canSquadMine = MineRareResource(squadEvent.Squad, squadEvent.Area);
+                break;
+
+            case ExplorationEvent.EventType.DISCOVER_AREA:
+                if (_areaManager.CanDiscoverNewArea())
+                {
+                    _areaManager.DiscoverNewArea();
+                }
+                else
+                {
+                    squadEvent.EventDetails = _defaultEvent.Description;
+                }
+                break;
+
+            case ExplorationEvent.EventType.NO_EVENT:
+            default:
+                break;
         }
 
         if (canSquadMine)
         {
-            MineResources(squad, area);
+            MineResources(squadEvent.Squad, squadEvent.Area);
         }
     }
 

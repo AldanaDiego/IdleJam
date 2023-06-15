@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86df47043c51b9644add8fde6676a845, type: 3}
-  m_Name: FindRareItem
+  m_Name: NoEvent
   m_EditorClassIdentifier: 
-  Name: Find Rare Item
-  Description: Found a rare resource
-  ExplorationEventType: 1
+  Name: No Event
+  Description: Exploring normally
+  ExplorationEventType: 0

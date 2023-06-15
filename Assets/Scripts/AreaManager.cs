@@ -7,6 +7,8 @@ public class AreaManager : Singleton<AreaManager>
     [SerializeField] private BiomeDB _biomeDB;
     [SerializeField] private Biome _startBiome;
 
+    private const int AREA_COUNT_LIMIT = 2;
+
     private List<Area> _areas;
 
     protected override void Awake()
@@ -41,5 +43,16 @@ public class AreaManager : Singleton<AreaManager>
     public List<Area> GetAreas()
     {
         return _areas;
+    }
+
+    public bool CanDiscoverNewArea()
+    {
+        return _areas.Count < AREA_COUNT_LIMIT;
+    }
+
+    public void DiscoverNewArea()
+    {
+        int index = Random.Range(0, _biomeDB.Biomes.Count);
+        _areas.Add(new Area(_areas.Count, _biomeDB.Biomes[index]));
     }
 }

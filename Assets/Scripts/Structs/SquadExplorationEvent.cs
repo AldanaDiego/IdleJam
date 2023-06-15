@@ -5,20 +5,25 @@ using UnityEngine;
 public class SquadExplorationEvent
 {
     public Squad Squad;
+    public Area Area;
     public ExplorationEvent ExplorationEvent;
+    public string EventDetails;
 
-    public SquadExplorationEvent(Squad squad, ExplorationEvent explorationEvent)
+    public SquadExplorationEvent(Squad squad, Area area, ExplorationEvent explorationEvent)
     {
         Squad = squad;
+        Area = area;
         ExplorationEvent = explorationEvent;
+        EventDetails = null;
     }
 
     public override string ToString()
     {
-        if (ExplorationEvent == null)
+        if (EventDetails != null)
         {
-            return $"> {Squad} is exploring normally";
+            return $">[{Squad}]: {EventDetails}";
         }
-        return "> " + ExplorationEvent.Description.Replace("SQUAD", Squad.ToString());
+
+        return $">[{Squad}]: {ExplorationEvent.Description}";
     }
 }

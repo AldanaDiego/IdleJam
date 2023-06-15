@@ -4647,7 +4647,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 642074233}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 22426251}
+        m_TargetAssemblyTypeName: AssignMenuManager, Assembly-CSharp
+        m_MethodName: ShowPreviousArea
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &642074233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6421,7 +6433,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 796443448}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 22426251}
+        m_TargetAssemblyTypeName: AssignMenuManager, Assembly-CSharp
+        m_MethodName: ShowNextArea
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &796443448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14830,6 +14854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744b99fb332c3d042a5ab3f5404ddde1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultEvent: {fileID: 11400000, guid: df3ad9dfcfd83ff46ba5649391770f81, type: 2}
 --- !u!114 &2110458286
 MonoBehaviour:
   m_ObjectHideFlags: 0
