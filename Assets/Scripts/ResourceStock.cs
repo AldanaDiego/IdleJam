@@ -46,6 +46,11 @@ public class ResourceStock : Singleton<ResourceStock>
         return true;
     }
 
+    public Dictionary<ResourceData, int> GetAllStocks()
+    {
+        return _stock;
+    }
+
     private void CollectCargoFromSquads()
     {
         List<Squad> squads = _squadManager.GetAssignedSquads();
@@ -58,7 +63,6 @@ public class ResourceStock : Singleton<ResourceStock>
                     Dictionary<ResourceData, int> droneCargo = drone.GetResourceCargo();
                     foreach (var cargo in droneCargo)
                     {
-                        Debug.Log($"{drone} collected {cargo.Value} {cargo.Key}");
                         _stock[cargo.Key] = _stock[cargo.Key] + cargo.Value;
                     }
                     drone.RemoveCargo();

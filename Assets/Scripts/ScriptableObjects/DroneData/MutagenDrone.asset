@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: Mutagen Drone
   Image: {fileID: 21300006, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
   IsLeader: 0
+  MiningSpeed: 1
+  CargoCapacity: 1
+  MaxHp: 5
   _costArray:
   - Resource: {fileID: 11400000, guid: 60e869622f9315d4d862e7a7a09b3cb1, type: 2}
     Amount: 1

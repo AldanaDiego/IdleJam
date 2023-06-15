@@ -15,6 +15,9 @@ MonoBehaviour:
   Name: Scanner Drone
   Image: {fileID: 21300018, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
   IsLeader: 1
+  MiningSpeed: 0
+  CargoCapacity: 0
+  MaxHp: 1
   _costArray:
   - Resource: {fileID: 11400000, guid: 60e869622f9315d4d862e7a7a09b3cb1, type: 2}
     Amount: 1

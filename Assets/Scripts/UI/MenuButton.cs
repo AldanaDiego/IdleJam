@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SideMenuButton : MonoBehaviour
+public class MenuButton : MonoBehaviour
 {
     [SerializeField] private UIStateManager.GameState _state;
     private UIStateManager _stateManager;
