@@ -18,7 +18,7 @@ public class ResourceStock : Singleton<ResourceStock>
         _stock = new Dictionary<ResourceData, int>();
         foreach (ResourceData resource in _resourceDB.Resources)
         {
-            _stock[resource] = (resource.IsBasicResource ? 10 : 2); //TODO SHOULD BE 0
+            _stock[resource] = resource.InitialAmount;
         }
     }
 
@@ -27,6 +27,11 @@ public class ResourceStock : Singleton<ResourceStock>
         _squadManager = SquadManager.GetInstance();
         DroneManager.GetInstance().OnDroneBuilt += OnDroneBuilt;
         ExploreLogManager.OnExploreLogFinished += OnExploreLogFinished;
+    }
+
+    public void SetupFromSave(Dictionary<ResourceData, int> stocks)
+    {
+        _stock = stocks;
     }
 
     public int GetResourceStock(ResourceData resource)

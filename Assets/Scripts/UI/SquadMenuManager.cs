@@ -7,6 +7,7 @@ using TMPro;
 public class SquadMenuManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _squadNameText;
+    [SerializeField] private TextMeshProUGUI _squadAssignedText;
     [SerializeField] private Transform _availableDronesList;
     [SerializeField] private Transform _squadDronesList;
     [SerializeField] private AvailableDroneImage _availableDroneImagePrefab;
@@ -69,13 +70,15 @@ public class SquadMenuManager : MonoBehaviour
 
     private void UpdateSquadMenu()
     {
-        _squadNameText.text = "Squad " + _currentSquadIndex.ToString("D2");
+        Squad squad = _squadManager.GetSquad(_currentSquadIndex);
+        _squadNameText.text = squad.ToString();
+        _squadAssignedText.text = (squad.GetArea() != -1) ? "Assigned to Area " + squad.GetArea().ToString("D2") : "";
         foreach (Transform child in _squadDronesList)
         {
             Destroy(child.gameObject);
         }
 
-        foreach (Drone drone in _squadManager.GetSquad(_currentSquadIndex))
+        foreach (Drone drone in squad.GetDrones())
         {
             AvailableDroneImage image = Instantiate(_availableDroneImagePrefab);
             image.Setup(drone, _squadDronesList);
@@ -92,11 +95,16 @@ public class SquadMenuManager : MonoBehaviour
 
     private void OnAvailableDroneClicked(object sender, Drone drone)
     {
-        int squadCurrentSize = _squadManager.GetSquad(_currentSquadIndex).Count;
+        Squad squad = _squadManager.GetSquad(_currentSquadIndex);
+        int squadCurrentSize = squad.GetDroneCount();
+        bool isAssigned = squad.IsAssigned();
         if (drone.GetSquad() != -1)
         {
-            _squadManager.RemoveFromSquad(drone, _currentSquadIndex);
-            ((AvailableDroneImage) sender).MoveTo(_availableDronesList);
+            if (!isAssigned || (isAssigned && squadCurrentSize > 2)) //Assigned squad cannot be empty
+            {
+                _squadManager.RemoveFromSquad(drone, _currentSquadIndex);
+                ((AvailableDroneImage) sender).MoveTo(_availableDronesList);
+            }
         }
         else if (squadCurrentSize < _squadManager.GetSquadSizeLimit())
         {
@@ -104,6 +112,7 @@ public class SquadMenuManager : MonoBehaviour
             ((AvailableDroneImage) sender).MoveTo(_squadDronesList);
         }
     }
+
 
     private void OnDestroy()
     {

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SquadManager : Singleton<SquadManager>
 {
-    [SerializeField] private DroneData _squadLeaderDrone;
     private List<Squad> _squads;
     private int _squadSizeLimit = 6;
 
@@ -19,6 +18,12 @@ public class SquadManager : Singleton<SquadManager>
         DroneManager.GetInstance().OnDroneBuilt += OnDroneBuilt;
     }
 
+    public void SetupFromSave(List<Squad> squads)
+    {
+        _squads = squads;
+        _squads.Sort();
+    }
+
     public int GetSquadCount()
     {
         return _squads.Count;
@@ -29,14 +34,14 @@ public class SquadManager : Singleton<SquadManager>
         return _squadSizeLimit;
     }
 
-    public List<Drone> GetSquad(int squadNumber)
+    public List<Drone> GetSquadMembers(int squadNumber)
     {
         return _squads[squadNumber].GetDrones();
     }
 
-    public DroneData GetSquadLeaderData()
+    public Squad GetSquad(int squadNumber)
     {
-        return _squadLeaderDrone;
+        return _squads[squadNumber];
     }
 
     public void AddToSquad(Drone drone, int squad)
@@ -83,9 +88,14 @@ public class SquadManager : Singleton<SquadManager>
         return _squads.FindAll(squad => (squad.GetArea() != -1));   
     }
 
+    public List<Squad> GetAllSquads()
+    {
+        return _squads;
+    }
+
     private void OnDroneBuilt(object sender, DroneData data)
     {
-        if (data == _squadLeaderDrone)
+        if (data.IsLeader)
         {
             _squads.Add(new Squad(_squads.Count));
             AddToSquad(new Drone(data), _squads.Count - 1);

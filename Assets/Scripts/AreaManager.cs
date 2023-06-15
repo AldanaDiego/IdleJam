@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class AreaManager : Singleton<AreaManager>
 {
-    [SerializeField] private List<Biome> _biomes;
+    [SerializeField] private BiomeDB _biomeDB;
+    [SerializeField] private Biome _startBiome;
 
     private List<Area> _areas;
 
-    private void Start()
+    protected override void Awake()
     {
-        _areas = new List<Area> { new Area(0, _biomes[0]) }; //TODO :eyes:
+        base.Awake();
+        _areas = new List<Area> { new Area(0, _startBiome) };
+    }
+
+    public void SetupFromSave(List<Area> areas, List<Squad> squads)
+    {
+        _areas = areas;
+        _areas.Sort();
+        foreach (Squad squad in squads)
+        {
+            if (squad.GetArea() != -1)
+            {
+                _areas[squad.GetArea()].AddSquad(squad);
+            }
+        }
     }
 
     public int GetAreaCount()

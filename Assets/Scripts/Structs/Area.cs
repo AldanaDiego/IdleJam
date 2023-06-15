@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using System;
 
 [Serializable]
-public class Area
+public class Area : IComparable<Area>, ISerializationCallbackReceiver
 {
+    [SerializeField] private Biome _biome;
+    [SerializeField] private int _areaNumber;
+
     private List<Squad> _squads;
-    private Biome _biome;
-    private int _areaNumber;
 
     public Area(int areaNumber, Biome biome)
     {
@@ -53,8 +55,25 @@ public class Area
         _squads.Remove(squad);
     }
 
+    public int GetAreaNumber()
+    {
+        return _areaNumber;
+    }
+
     public override string ToString()
     {
         return "Area " + _areaNumber.ToString("D2");
+    }
+
+    public int CompareTo(Area other)
+    {
+        return _areaNumber.CompareTo(other.GetAreaNumber());
+    }
+
+    public void OnBeforeSerialize(){}
+
+    public void OnAfterDeserialize()
+    {
+        _squads = new List<Squad>();
     }
 }

@@ -3,10 +3,11 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Drone
+public class Drone : ISerializationCallbackReceiver
 {
-    private DroneData _data;
-    private int _squad = -1;
+    [SerializeField] private DroneData _data;
+    [SerializeField] private int _squad = -1;
+
     private Dictionary<ResourceData, int> _resourceCargo;
     private int _currentCargo;
 
@@ -96,5 +97,13 @@ public class Drone
     public override string ToString()
     {
         return _data.Name;
+    }
+
+    public void OnBeforeSerialize(){}
+
+    public void OnAfterDeserialize()
+    {
+        _currentCargo = 0;
+        _resourceCargo = new Dictionary<ResourceData, int>();
     }
 }

@@ -7,6 +7,7 @@ public class ResourceData : ScriptableObject
 {
     public string Name;
     public bool IsBasicResource;
+    public int InitialAmount;
 
     public override string ToString()
     {

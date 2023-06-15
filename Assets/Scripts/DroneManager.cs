@@ -5,18 +5,32 @@ using System;
 
 public class DroneManager : Singleton<DroneManager>
 {
-    [SerializeField] private DroneData _squadLeaderDrone;
     private List<Drone> _drones;
     public event EventHandler<DroneData> OnDroneBuilt;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         _drones = new List<Drone>();
+    }
+
+    public void SetupFromSave(List<Squad> squads)
+    {
+        foreach (Squad squad in squads)
+        {
+            foreach (Drone drone in squad.GetDrones())
+            {
+                if (!drone.IsSquadLeader())
+                {
+                    _drones.Add(drone);
+                }
+            }
+        }
     }
 
     public void BuildDrone(DroneData data)
     {
-        if (data != _squadLeaderDrone)
+        if (!data.IsLeader)
         {
             _drones.Add(new Drone(data));
         }

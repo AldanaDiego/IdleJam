@@ -15,14 +15,14 @@ public class AvailableDroneImage : MonoBehaviour
 
     public void Setup(Drone drone, Transform parent)
     {
-        _drone = drone;
-        _transform = transform;
-        _image.sprite = drone.GetImage();
-        _transform.SetParent(parent);
         if (drone.IsSquadLeader())
         {
             _button.interactable = false;
         }
+        _drone = drone;
+        _transform = transform;
+        _image.sprite = drone.GetImage();
+        _transform.SetParent(parent);
     }
 
     public void MoveTo(Transform parent)

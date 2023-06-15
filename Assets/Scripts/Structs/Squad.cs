@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using System;
 
 [Serializable]
-public class Squad
+public class Squad : IComparable<Squad>
 {
-    private List<Drone> _drones;
-    public int _area;
-    private int _squadNumber;
+    [SerializeField] private List<Drone> _drones;
+    [SerializeField] private int _area;
+    [SerializeField] private int _squadNumber;
 
     public Squad(int squadNumber)
     {
@@ -53,8 +54,18 @@ public class Squad
         _area = newArea;
     }
 
+    public bool IsAssigned()
+    {
+        return _area != -1;
+    }
+
     public override string ToString()
     {
         return "Squad " + _squadNumber.ToString("D2");
+    }
+
+    public int CompareTo(Squad other)
+    {
+        return _squadNumber.CompareTo(other.GetSquadNumber());
     }
 }
