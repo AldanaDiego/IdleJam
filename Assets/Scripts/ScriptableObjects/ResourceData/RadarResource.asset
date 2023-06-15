@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Radar
   IsBasicResource: 0
+  InitialAmount: 1
+  IsSingleFind: 1

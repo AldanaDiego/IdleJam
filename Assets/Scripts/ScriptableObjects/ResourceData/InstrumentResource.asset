@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Instruments
   IsBasicResource: 1
+  InitialAmount: 4
+  IsSingleFind: 0
