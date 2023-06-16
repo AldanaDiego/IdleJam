@@ -8,11 +8,15 @@ Game made in Unity for Summer Slow Jams 2023: Idle
 
 ## Credits
 
-### Models and Animations
+### Character Models
+- [Sentry Robot](https://assetstore.unity.com/packages/3d/characters/robots/sentry-robot-222899) by Tvtig
+- [Delivery Robot](https://assetstore.unity.com/packages/3d/characters/robots/delivery-robot-185414) by Vergis
+- [Alien Ships Pack](https://assetstore.unity.com/packages/3d/vehicles/space/alien-ships-pack-131137) by Autarca
+
+### Environment Models
 - [Sci Fi Base Assets](https://assetstore.unity.com/packages/3d/environments/sci-fi/sci-fi-base-assets-free-demo-pack-131284) by KLURA Design // Niklas Öhrberg
 - [Sci-Fi Office Pack](https://assetstore.unity.com/packages/3d/environments/sci-fi/free-sci-fi-office-pack-195067) by Terresquall
 - [Old Military Bed](https://assetstore.unity.com/packages/3d/props/interior/old-military-bed-40205) by Next Level 3D
-- [Sentry Robot](https://assetstore.unity.com/packages/3d/characters/robots/sentry-robot-222899) by Tvtig
 
 ### Materials
 - [50 Free PBR Materials](https://assetstore.unity.com/packages/2d/textures-materials/50-free-pbr-materials-242760) by CaptainCatSparrow
@@ -20,6 +24,4 @@ Game made in Unity for Summer Slow Jams 2023: Idle
 ### UI
 - [Sci-fi GUI skin](https://assetstore.unity.com/packages/2d/gui/sci-fi-gui-skin-15606) by 3d.rina
 - [Free Sci-fi Game Icons](https://krukowski.itch.io/free-sci-fi-game-icons) by Mark Krukowski
-
-### Fonts
 - [Blazma Font](https://ggbot.itch.io/blazma-font) by GGBotNet

@@ -19,6 +19,11 @@ public class Drone : ISerializationCallbackReceiver
         _resourceCargo = new Dictionary<ResourceData, int>();
     }
 
+    public DroneData GetDroneData()
+    {
+        return _data;
+    }
+
     public Sprite GetImage()
     {
         return _data.Image;
