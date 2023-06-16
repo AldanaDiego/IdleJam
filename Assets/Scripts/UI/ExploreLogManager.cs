@@ -19,9 +19,9 @@ public class ExploreLogManager : MonoBehaviour
     private void Awake()
     {
         MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
-        menuBehaviour.OnCreate = OnCreate;
-        menuBehaviour.OnShow = OnShow;
-        menuBehaviour.OnHide = OnHide;
+        menuBehaviour.OnCreate += OnCreate;
+        menuBehaviour.OnShow += OnShow;
+        menuBehaviour.OnHide += OnHide;
     }
 
     private void OnCreate()
@@ -51,13 +51,17 @@ public class ExploreLogManager : MonoBehaviour
 
     private IEnumerator ShowLogMessages(SquadExplorationEvent[] squadEvents)
     {
+        TextMeshProUGUI log;
         foreach(SquadExplorationEvent squadEvent in squadEvents)
         {
             yield return new WaitForSeconds(1f);
-            TextMeshProUGUI log = Instantiate(_logTextPrefab, _exploreLogList);
+            log = Instantiate(_logTextPrefab, _exploreLogList);
             log.text = squadEvent.ToString();
             _scroll.verticalNormalizedPosition = 0f;
         }
+        
+        log = Instantiate(_logTextPrefab, _exploreLogList);
+        log.text = ">All squads exploration ended";
         _scroll.verticalNormalizedPosition = 0f;
         yield return new WaitForSeconds(1f);
         _backButton.interactable = true;

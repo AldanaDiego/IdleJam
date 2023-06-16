@@ -21,9 +21,9 @@ public class SquadExplorationEvent
     {
         if (EventDetails != null)
         {
-            return $">[{Squad}]: {EventDetails}";
+            return $">{Squad}: {EventDetails}";
         }
 
-        return $">[{Squad}]: {ExplorationEvent.Description}";
+        return $">{Squad}: {ExplorationEvent.Description}";
     }
 }
