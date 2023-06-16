@@ -18,24 +18,9 @@ public class Area : IComparable<Area>, ISerializationCallbackReceiver
         _squads = new List<Squad>();
     }
 
-    public string GetBiomeName()
+    public Biome GetBiome()
     {
-        return _biome.Name;
-    }
-
-    public string GetBiomeDetails()
-    {
-        return _biome.Details;
-    }
-
-    public List<ExplorationEventChance> GetBiomeEvents()
-    {
-        return _biome.ExplorationEventChances;
-    }
-
-    public List<ResourceChance> GetBiomeResourceChances()
-    {
-        return _biome.ResourceChances;
+        return _biome;
     }
 
     public List<Squad> GetSquads()

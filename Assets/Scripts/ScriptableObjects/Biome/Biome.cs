@@ -7,6 +7,7 @@ public class Biome : ScriptableObject
 {
     public string Name;
     public string Details;
+    public Vector2 Coordinates;
     public List<ExplorationEventChance> ExplorationEventChances;
     public List<ResourceChance> ResourceChances;
 }

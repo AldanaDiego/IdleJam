@@ -14,6 +14,9 @@ public class ExploreLogManager : MonoBehaviour
 
     private ExplorationManager _explorationManager;
 
+    private const float LOG_COOLDOWN = 2f;
+
+    public event EventHandler<SquadExplorationEvent> OnExploreLogShown;
     public static event EventHandler OnExploreLogFinished;
 
     private void Awake()
@@ -54,7 +57,11 @@ public class ExploreLogManager : MonoBehaviour
         TextMeshProUGUI log;
         foreach(SquadExplorationEvent squadEvent in squadEvents)
         {
-            yield return new WaitForSeconds(1f);
+            if (squadEvent.HasCameraEvent)
+            {
+                OnExploreLogShown?.Invoke(this, squadEvent);
+            }
+            yield return new WaitForSeconds(LOG_COOLDOWN);
             log = Instantiate(_logTextPrefab, _exploreLogList);
             log.text = squadEvent.ToString();
             _scroll.verticalNormalizedPosition = 0f;
@@ -63,7 +70,7 @@ public class ExploreLogManager : MonoBehaviour
         log = Instantiate(_logTextPrefab, _exploreLogList);
         log.text = ">All squads exploration ended";
         _scroll.verticalNormalizedPosition = 0f;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(LOG_COOLDOWN);
         _backButton.interactable = true;
     }
 

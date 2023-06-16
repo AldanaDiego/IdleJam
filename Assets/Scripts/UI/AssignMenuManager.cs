@@ -59,8 +59,8 @@ public class AssignMenuManager : MonoBehaviour
         Area area = _areaManager.GetArea(_currentAreaIndex);
         _areaName.text = "Area " + _currentAreaIndex.ToString("D2");
         _areaTitle.text = "Area " + _currentAreaIndex.ToString("D2") + "\nSquads";
-        _areaBiome.text = $"Biome: {area.GetBiomeName()}";
-        _areaBiomeDetails.text = area.GetBiomeDetails();
+        _areaBiome.text = $"Biome: {area.GetBiome().Name}";
+        _areaBiomeDetails.text = area.GetBiome().Details;
 
         foreach (Transform child in _areaAssignedSquadList)
         {

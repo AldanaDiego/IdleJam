@@ -8,6 +8,7 @@ public class SquadExplorationEvent
     public Area Area;
     public ExplorationEvent ExplorationEvent;
     public string EventDetails;
+    public bool HasCameraEvent;
 
     public SquadExplorationEvent(Squad squad, Area area, ExplorationEvent explorationEvent)
     {
@@ -15,6 +16,7 @@ public class SquadExplorationEvent
         Area = area;
         ExplorationEvent = explorationEvent;
         EventDetails = null;
+        HasCameraEvent = true;
     }
 
     public override string ToString()

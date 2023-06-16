@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Biomes:
   - {fileID: 11400000, guid: 1ad10da859b350643b5387039e073fc9, type: 2}
+  - {fileID: 11400000, guid: 89d0278aa2c00ed4f8bc2a9bbc320724, type: 2}

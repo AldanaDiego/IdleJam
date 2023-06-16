@@ -10,22 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26f889eed666cc147a435c0b0bc84a9a, type: 3}
-  m_Name: Grassland
+  m_Name: Desert
   m_EditorClassIdentifier: 
-  Name: Grassland
-  Details: Abundance of common resources
-  Coordinates: {x: 50, y: 0}
-  ExplorationEventChances:
-  - Event: {fileID: 11400000, guid: c359545242cdc264180a0f0b5bc01c19, type: 2}
-    Chance: 0.1
-  - Event: {fileID: 11400000, guid: 04b263e174dbee344b1dcdd0894a35fe, type: 2}
-    Chance: 0.01
+  Name: Desert
+  Details: Is hot and arid
+  Coordinates: {x: 50, y: 50}
+  ExplorationEventChances: []
   ResourceChances:
   - Resource: {fileID: 11400000, guid: 3c669f0eb12122747bf45ffa4487a9dd, type: 2}
-    Chance: 0.3
+    Chance: 0.7
   - Resource: {fileID: 11400000, guid: 88cd34529c91e4b4d92f95a229e6d3d5, type: 2}
-    Chance: 0.4
+    Chance: 0.2
   - Resource: {fileID: 11400000, guid: 60e869622f9315d4d862e7a7a09b3cb1, type: 2}
-    Chance: 0.3
-  - Resource: {fileID: 11400000, guid: 8da93b6ac171f3740ac5707490e364f0, type: 2}
-    Chance: 1
+    Chance: 0.1

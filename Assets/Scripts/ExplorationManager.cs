@@ -36,7 +36,7 @@ public class ExplorationManager : Singleton<ExplorationManager>
                 for (int i = 0; i < EVENTS_PER_DEPLOY; i++)
                 {
                     int index = currentSquad + (i * squadCountTotal);
-                    SquadExplorationEvent explorationEvent = new SquadExplorationEvent(squad, area, PickEventByChance(area.GetBiomeEvents()));
+                    SquadExplorationEvent explorationEvent = new SquadExplorationEvent(squad, area, PickEventByChance(area.GetBiome().ExplorationEventChances));
                     triggeredEvents[index] = explorationEvent;
                 }
                 currentSquad++;
@@ -66,7 +66,7 @@ public class ExplorationManager : Singleton<ExplorationManager>
 
     private void MineResources(Squad squad, Area area)
     {
-        List<ResourceChance> basicResourceChances = area.GetBiomeResourceChances().FindAll(chance => chance.Resource.IsBasicResource);
+        List<ResourceChance> basicResourceChances = area.GetBiome().ResourceChances.FindAll(chance => chance.Resource.IsBasicResource);
         foreach (Drone drone in squad.GetDrones())
         {
             if (drone.CanMine())
@@ -122,7 +122,7 @@ public class ExplorationManager : Singleton<ExplorationManager>
 
     private bool MineRareResource(Squad squad, Area area)
     {
-        List<ResourceChance> rareResourceChances = area.GetBiomeResourceChances().FindAll(chance => !chance.Resource.IsBasicResource);
+        List<ResourceChance> rareResourceChances = area.GetBiome().ResourceChances.FindAll(chance => !chance.Resource.IsBasicResource);
         float totalChance = UnityEngine.Random.value;
         ResourceData mineResource = null;
         foreach (ResourceChance resourceChance in rareResourceChances)
