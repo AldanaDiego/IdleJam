@@ -13,7 +13,7 @@ public class AvailableDroneImage : MonoBehaviour
 
     public static event EventHandler<Drone> OnAvailableDroneClicked;
 
-    public void Setup(Drone drone, Transform parent)
+    public void Setup(Drone drone)
     {
         if (drone.IsSquadLeader())
         {
@@ -22,7 +22,6 @@ public class AvailableDroneImage : MonoBehaviour
         _drone = drone;
         _transform = transform;
         _image.sprite = drone.GetImage();
-        _transform.SetParent(parent);
     }
 
     public void MoveTo(Transform parent)

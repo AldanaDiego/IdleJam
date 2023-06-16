@@ -10,6 +10,7 @@ public class ExploreLogManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _logTextPrefab;
     [SerializeField] private Transform _exploreLogList;
     [SerializeField] private Button _backButton;
+    [SerializeField] private ScrollRect _scroll;
 
     private ExplorationManager _explorationManager;
 
@@ -53,10 +54,11 @@ public class ExploreLogManager : MonoBehaviour
         foreach(SquadExplorationEvent squadEvent in squadEvents)
         {
             yield return new WaitForSeconds(1f);
-            TextMeshProUGUI log = Instantiate(_logTextPrefab);
+            TextMeshProUGUI log = Instantiate(_logTextPrefab, _exploreLogList);
             log.text = squadEvent.ToString();
-            log.transform.SetParent(_exploreLogList);
+            _scroll.verticalNormalizedPosition = 0f;
         }
+        _scroll.verticalNormalizedPosition = 0f;
         yield return new WaitForSeconds(1f);
         _backButton.interactable = true;
     }

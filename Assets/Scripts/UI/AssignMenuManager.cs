@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class AssignMenuManager : MonoBehaviour
@@ -12,6 +13,8 @@ public class AssignMenuManager : MonoBehaviour
     [SerializeField] private SquadPreview _squadPreviewPrefab;
     [SerializeField] private Transform _availableSquadsList;
     [SerializeField] private Transform _areaAssignedSquadList;
+    [SerializeField] private Button _leftArrowButton;
+    [SerializeField] private Button _rightArrowButton;
 
     private AreaManager _areaManager;
     private SquadManager _squadManager;
@@ -66,8 +69,8 @@ public class AssignMenuManager : MonoBehaviour
         List<Squad> areaSquads = area.GetSquads();
         foreach (Squad squad in areaSquads)
         {
-            SquadPreview preview = Instantiate(_squadPreviewPrefab);
-            preview.Setup(squad, _areaAssignedSquadList);
+            SquadPreview preview = Instantiate(_squadPreviewPrefab, _areaAssignedSquadList);
+            preview.Setup(squad);
         }
     }
 
@@ -80,16 +83,19 @@ public class AssignMenuManager : MonoBehaviour
         List<Squad> squads = _squadManager.GetUnassignedSquads();
         foreach (Squad squad in squads)
         {
-            SquadPreview preview = Instantiate(_squadPreviewPrefab);
-            preview.Setup(squad, _availableSquadsList);
+            SquadPreview preview = Instantiate(_squadPreviewPrefab, _availableSquadsList);
+            preview.Setup(squad);
         }
     }
 
     private void OnShow()
     {
         _currentAreaIndex = 0;
+        int count = _areaManager.GetAreaCount();
         UpdateAreaInfo();
         UpdateAvailableSquads();
+        _leftArrowButton.interactable = (count > 1);
+        _rightArrowButton.interactable = (count > 1);
     }
 
     private void OnSquadPreviewClicked(object sender, Squad squad)

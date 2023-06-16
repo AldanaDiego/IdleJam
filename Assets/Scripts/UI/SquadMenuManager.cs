@@ -11,6 +11,8 @@ public class SquadMenuManager : MonoBehaviour
     [SerializeField] private Transform _availableDronesList;
     [SerializeField] private Transform _squadDronesList;
     [SerializeField] private AvailableDroneImage _availableDroneImagePrefab;
+    [SerializeField] private Button _leftArrowButton;
+    [SerializeField] private Button _rightArrowButton;
 
     private SquadManager _squadManager;
     private DroneManager _droneManager;
@@ -60,8 +62,8 @@ public class SquadMenuManager : MonoBehaviour
     {
         foreach (Drone drone in _droneManager.GetAvailableDrones())
         {
-            AvailableDroneImage image = Instantiate(_availableDroneImagePrefab);
-            image.Setup(drone, _availableDronesList);
+            AvailableDroneImage image = Instantiate(_availableDroneImagePrefab, _availableDronesList);
+            image.Setup(drone);
         }
     }
 
@@ -77,8 +79,8 @@ public class SquadMenuManager : MonoBehaviour
 
         foreach (Drone drone in squad.GetDrones())
         {
-            AvailableDroneImage image = Instantiate(_availableDroneImagePrefab);
-            image.Setup(drone, _squadDronesList);
+            AvailableDroneImage image = Instantiate(_availableDroneImagePrefab, _squadDronesList);
+            image.Setup(drone);
         }
     }
 
@@ -88,6 +90,8 @@ public class SquadMenuManager : MonoBehaviour
         _currentSquadIndex = 0;
         UpdateAvailableList();
         UpdateSquadMenu();
+        _leftArrowButton.interactable = (_squadCount > 1);
+        _rightArrowButton.interactable = (_squadCount > 1);
     }
 
     public void OnHide()

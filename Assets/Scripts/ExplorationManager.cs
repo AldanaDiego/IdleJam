@@ -26,18 +26,20 @@ public class ExplorationManager : Singleton<ExplorationManager>
     private void GenerateExploringEvents()
     {
         //List<SquadExplorationEvent> triggeredEvents = new List<SquadExplorationEvent>();
-        int squadCount = _squadManager.GetAssignedSquads().Count;
-        SquadExplorationEvent[] triggeredEvents = new SquadExplorationEvent[squadCount * EVENTS_PER_DEPLOY];
+        int squadCountTotal = _squadManager.GetAssignedSquads().Count;
+        SquadExplorationEvent[] triggeredEvents = new SquadExplorationEvent[squadCountTotal * EVENTS_PER_DEPLOY];
+        int currentSquad = 0;
         foreach (Area area in _areaManager.GetAreas())
         {
             foreach (Squad squad in area.GetSquads())
             {
                 for (int i = 0; i < EVENTS_PER_DEPLOY; i++)
                 {
-                    int index = squad.GetSquadNumber() + (i * squadCount);
+                    int index = currentSquad + (i * squadCountTotal);
                     SquadExplorationEvent explorationEvent = new SquadExplorationEvent(squad, area, PickEventByChance(area.GetBiomeEvents()));
                     triggeredEvents[index] = explorationEvent;
                 }
+                currentSquad++;
             }
         }
 

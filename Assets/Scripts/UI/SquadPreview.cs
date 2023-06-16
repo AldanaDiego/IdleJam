@@ -16,10 +16,9 @@ public class SquadPreview : MonoBehaviour
 
     public static event EventHandler<Squad> OnSquadPreviewClicked;
 
-    public void Setup(Squad squad, Transform parent)
+    public void Setup(Squad squad)
     {
         _transform = transform;
-        _transform.SetParent(parent);
         _squad = squad;
         _squadNameText.text = squad.ToString();
         _transparent = Color.white;

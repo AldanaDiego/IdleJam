@@ -183,6 +183,8 @@ MonoBehaviour:
   _squadPreviewPrefab: {fileID: -1254842824389490039, guid: f36f1ba4c5076214da355dee23030fb8, type: 3}
   _availableSquadsList: {fileID: 89075844}
   _areaAssignedSquadList: {fileID: 1099437272}
+  _leftArrowButton: {fileID: 642074232}
+  _rightArrowButton: {fileID: 796443447}
 --- !u!114 &22426252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1825,7 +1827,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 8
   m_Viewport: {fileID: 1634533003}
   m_HorizontalScrollbar: {fileID: 546918809}
   m_VerticalScrollbar: {fileID: 834721552}
@@ -3181,7 +3183,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 8
   m_Viewport: {fileID: 1176851180}
   m_HorizontalScrollbar: {fileID: 1866516012}
   m_VerticalScrollbar: {fileID: 1440212577}
@@ -4412,7 +4414,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 8
   m_Viewport: {fileID: 1449439490}
   m_HorizontalScrollbar: {fileID: 1378747491}
   m_VerticalScrollbar: {fileID: 1296814046}
@@ -4499,7 +4501,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -10, y: 10}
-  m_SizeDelta: {x: 250, y: 100}
+  m_SizeDelta: {x: 250, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &639357052
 MonoBehaviour:
@@ -4818,7 +4820,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 45652170}
   m_HandleRect: {fileID: 45652169}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9945,6 +9947,8 @@ MonoBehaviour:
   _availableDronesList: {fileID: 1858709918}
   _squadDronesList: {fileID: 1129879468}
   _availableDroneImagePrefab: {fileID: -6847047604135312399, guid: 86fb611a4f8c2254e9cceb4cd8d9a916, type: 3}
+  _leftArrowButton: {fileID: 1827741103}
+  _rightArrowButton: {fileID: 150353236}
 --- !u!114 &1311497097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11200,7 +11204,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 225, y: 85}
+  m_SizeDelta: {x: 225, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1561265366
 MonoBehaviour:
@@ -11215,7 +11219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1588030107}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -11992,6 +11996,7 @@ MonoBehaviour:
   _logTextPrefab: {fileID: 6466076375011384891, guid: 060c1534f8cf1fa4fb834a2ea49960ee, type: 3}
   _exploreLogList: {fileID: 1588030107}
   _backButton: {fileID: 510216102}
+  _scroll: {fileID: 1561265366}
 --- !u!1 &1675252784
 GameObject:
   m_ObjectHideFlags: 0
