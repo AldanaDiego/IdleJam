@@ -15401,6 +15401,7 @@ GameObject:
   - component: {fileID: 2110458285}
   - component: {fileID: 2110458286}
   - component: {fileID: 2110458287}
+  - component: {fileID: 2110458288}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -15523,6 +15524,19 @@ MonoBehaviour:
     Environment: {fileID: 1542426300}
   - Biome: {fileID: 11400000, guid: 89d0278aa2c00ed4f8bc2a9bbc320724, type: 2}
     Environment: {fileID: 110393681}
+--- !u!114 &2110458288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110458279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 510be681eeb3ffe4c88bb73f80e4c5c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _biomeDB: {fileID: 11400000, guid: d84587227a4411e40b0999369f5f1bed, type: 2}
 --- !u!1001 &2114053708
 PrefabInstance:
   m_ObjectHideFlags: 0

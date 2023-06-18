@@ -15,6 +15,17 @@ MonoBehaviour:
   Name: Grassland
   Details: Abundance of common resources
   Coordinates: {x: 50, y: 0}
+  Properties:
+  - Property: 0
+    Applies: 1
+  - Property: 1
+    Applies: 1
+  - Property: 2
+    Applies: 0
+  - Property: 3
+    Applies: 0
+  - Property: 4
+    Applies: 0
   ExplorationEventChances:
   - Event: {fileID: 11400000, guid: c359545242cdc264180a0f0b5bc01c19, type: 2}
     Chance: 0.1

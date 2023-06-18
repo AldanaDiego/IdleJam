@@ -15,6 +15,17 @@ MonoBehaviour:
   Name: Desert
   Details: Is hot and arid
   Coordinates: {x: 50, y: 50}
+  Properties:
+  - Property: 0
+    Applies: 0
+  - Property: 1
+    Applies: 1
+  - Property: 2
+    Applies: 0
+  - Property: 3
+    Applies: 0
+  - Property: 4
+    Applies: 0
   ExplorationEventChances: []
   ResourceChances:
   - Resource: {fileID: 11400000, guid: 3c669f0eb12122747bf45ffa4487a9dd, type: 2}
