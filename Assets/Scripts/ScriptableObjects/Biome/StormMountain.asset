@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26f889eed666cc147a435c0b0bc84a9a, type: 3}
-  m_Name: Desert
+  m_Name: StormMountain
   m_EditorClassIdentifier: 
-  Name: Desert
-  Details: Hot and arid terrain with no vegetation left.
-  Coordinates: {x: 150, y: 0}
+  Name: Storm Mountain
+  Details: Thunderclouds loom over this rocky terrain. May slow down exploration.
+  Coordinates: {x: 100, y: 50}
   Properties:
   - Property: 0
-    Applies: 0
-  - Property: 1
     Applies: 1
+  - Property: 1
+    Applies: 0
   - Property: 2
     Applies: 0
   - Property: 3
-    Applies: 0
+    Applies: 1
   - Property: 4
     Applies: 0
   ExplorationEventChances:
@@ -31,8 +31,8 @@ MonoBehaviour:
     Chance: 0.5
   ResourceChances:
   - Resource: {fileID: 11400000, guid: 3c669f0eb12122747bf45ffa4487a9dd, type: 2}
-    Chance: 0.8
+    Chance: 0.3
   - Resource: {fileID: 11400000, guid: 88cd34529c91e4b4d92f95a229e6d3d5, type: 2}
-    Chance: 0.15
+    Chance: 0.1
   - Resource: {fileID: 11400000, guid: 60e869622f9315d4d862e7a7a09b3cb1, type: 2}
-    Chance: 0.05
+    Chance: 0.6

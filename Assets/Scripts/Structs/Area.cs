@@ -23,6 +23,11 @@ public class Area : IComparable<Area>, ISerializationCallbackReceiver
         return _biome;
     }
 
+    public void SetBiome(Biome biome)
+    {
+        _biome = biome;
+    }
+
     public List<Squad> GetSquads()
     {
         return _squads;

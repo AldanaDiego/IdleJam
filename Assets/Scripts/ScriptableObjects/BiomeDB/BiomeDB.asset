@@ -13,5 +13,35 @@ MonoBehaviour:
   m_Name: BiomeDB
   m_EditorClassIdentifier: 
   Biomes:
-  - {fileID: 11400000, guid: 1ad10da859b350643b5387039e073fc9, type: 2}
+  - {fileID: 11400000, guid: ed41719bce52004449e1ebb59b4d634e, type: 2}
+  - {fileID: 11400000, guid: 51aebed1d7847b14b87ec64849f6a28e, type: 2}
+  - {fileID: 11400000, guid: ac591f2cce225744dab7ae23e8cb9bc2, type: 2}
+  - {fileID: 11400000, guid: 92fdc73ae2935244fb8b75f1e90260ed, type: 2}
   - {fileID: 11400000, guid: 89d0278aa2c00ed4f8bc2a9bbc320724, type: 2}
+  - {fileID: 11400000, guid: 1c9676d9fb9a7f34faf360ebe91bf94f, type: 2}
+  - {fileID: 11400000, guid: 025b6a163e53f0c48b509c0eb0c311f1, type: 2}
+  - {fileID: 11400000, guid: 38278995806fea847b2c935893d26c8b, type: 2}
+  - {fileID: 11400000, guid: 6c441cd9d0803874b928fbbe63f3c3d0, type: 2}
+  - {fileID: 11400000, guid: 6f7c6ea639661824e9e918bde60e5f42, type: 2}
+  - {fileID: 11400000, guid: e054f869479ec164d8ab6adc36bf24dd, type: 2}
+  - {fileID: 11400000, guid: 02b21df4461ca4845915db55da4cffdf, type: 2}
+  - {fileID: 11400000, guid: 1ad10da859b350643b5387039e073fc9, type: 2}
+  - {fileID: 11400000, guid: 169e4fc026d89964e8d44a0dff731705, type: 2}
+  - {fileID: 11400000, guid: 113e2e0afe7e1244696ad7dbc65c21ab, type: 2}
+  - {fileID: 11400000, guid: fdf21189ae542604dacbd6b4c8f3fdde, type: 2}
+  - {fileID: 11400000, guid: ca5cb5f56d57e8c40a0eb5fb4484e855, type: 2}
+  - {fileID: 11400000, guid: d15b71b8032f7f441b7633912bd3bbd2, type: 2}
+  - {fileID: 11400000, guid: 6ca175fe68508104da583f53a81d7db7, type: 2}
+  - {fileID: 11400000, guid: 17374ba3bdf8a8140af0eeab521ca86f, type: 2}
+  - {fileID: 11400000, guid: 64654fa0ebb16bd4293a413e7ed02caa, type: 2}
+  - {fileID: 11400000, guid: b5db462c50f793c47bfd3a6e38f4a2ab, type: 2}
+  - {fileID: 11400000, guid: bbccffbdb8312cb4888db73cb7715b96, type: 2}
+  - {fileID: 11400000, guid: 20e75c58e7187b849a942af8c227b14d, type: 2}
+  - {fileID: 11400000, guid: 9d6f3469cd47d8c4b90cb3f3f4c67443, type: 2}
+  - {fileID: 11400000, guid: 6b404323c5dccc34881f8a933b03feab, type: 2}
+  - {fileID: 11400000, guid: da25e1f791b08a540aae39a564529330, type: 2}
+  - {fileID: 11400000, guid: 4e5b4843144412440851e163158a171b, type: 2}
+  - {fileID: 11400000, guid: 3e765b80795ddbc418cd973740beb7d3, type: 2}
+  - {fileID: 11400000, guid: b2b5481e0317884419c251323ede2b24, type: 2}
+  - {fileID: 11400000, guid: 83e1f1483ffa7e2498f1cb12b9ea33a2, type: 2}
+  - {fileID: 11400000, guid: afe4e93ab5ce4fc4b810454e5e0ab9f6, type: 2}

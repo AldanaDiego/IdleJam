@@ -10,17 +10,32 @@ public class BiomeMutationManager : Singleton<BiomeMutationManager>
     private void Start()
     {
         _biomes = new Dictionary<int, Biome>();
-        foreach (Biome biome in _biomeDB.Biomes)
-        {
-            int id = CalculateID(biome);
-            _biomes[id] = biome;
-            Debug.Log($"Biome {id}: {biome}");
-        }
+        #if UNITY_EDITOR
+            ValidateBiomes();
+        #else
+            foreach (Biome biome in _biomeDB.Biomes)
+            {
+                _biomes[CalculateID(biome)] = biome;
+            }
+        #endif
     }
 
-    public Biome GetBiomeMutation(Biome biome, List<BiomePropertyApplies> propApplies)
+    public Biome GetBiomeMutation(Biome biome, List<BiomePropertyApplies> propertiesChanged)
     {
-        return biome;
+        int id = CalculateID(biome);
+        foreach (BiomePropertyApplies change in propertiesChanged)
+        {
+            int amount = (int)Mathf.Pow(2, (int)change.Property);
+            if (change.Applies)
+            {
+                id += amount;
+            }
+            else
+            {
+                id -= amount;
+            }
+        }
+        return _biomes[id];
     }
 
     private int CalculateID(Biome biome)
@@ -34,6 +49,62 @@ public class BiomeMutationManager : Singleton<BiomeMutationManager>
             }
         }
         return i;
+    }
+
+    private void ValidateBiomes()
+    {
+        Debug.Log($"Validating biomes");
+        foreach (Biome biome in _biomeDB.Biomes)
+        {
+            int id = CalculateID(biome);
+            if (_biomes.ContainsKey(id))
+            {
+                Debug.Log($"Duplicate biome ID: {_biomes[id]} {biome}");
+            }
+            
+            List<ResourceChance> resourceChances = biome.ResourceChances.FindAll(chance => chance.Resource.IsBasicResource);
+            if (resourceChances.Count != 3)
+            {
+                Debug.Log($"{biome} doesn't have all basic resources");
+            }
+
+            float chanceSum = 0f;
+            foreach (ResourceChance chance in resourceChances)
+            {
+                chanceSum += chance.Chance;
+            }
+
+            if (chanceSum != 1f)
+            {
+                Debug.Log($"{biome} basic resources don't sum 1");
+            }
+
+            resourceChances = biome.ResourceChances.FindAll(chance => !chance.Resource.IsBasicResource);
+            if (resourceChances.Count > 0)
+            {
+                chanceSum = 0f;
+                foreach (ResourceChance chance in resourceChances)
+                {
+                    chanceSum += chance.Chance;
+                }
+
+                if (chanceSum != 1f)
+                {
+                    Debug.Log($"{biome} rare resources don't sum 1");
+                }
+            }
+
+            Vector2 coordinates = new Vector2(
+                ((id % 8) + 1) * 50,
+                (Mathf.RoundToInt(id/8)) * 50
+            );
+            if (biome.Coordinates != coordinates)
+            {
+                Debug.Log($"{biome} has wrong coordinates");
+            }
+
+            _biomes[id] = biome;
+        }
     }
 
 }

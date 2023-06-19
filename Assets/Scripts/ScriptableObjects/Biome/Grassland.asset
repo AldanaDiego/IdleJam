@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Grassland
   m_EditorClassIdentifier: 
   Name: Grassland
-  Details: Abundance of common resources
-  Coordinates: {x: 50, y: 0}
+  Details: A temperate land with few vegetation.
+  Coordinates: {x: 200, y: 0}
   Properties:
   - Property: 0
     Applies: 1
@@ -31,6 +31,8 @@ MonoBehaviour:
     Chance: 0.1
   - Event: {fileID: 11400000, guid: 04b263e174dbee344b1dcdd0894a35fe, type: 2}
     Chance: 0.01
+  - Event: {fileID: 11400000, guid: 8bd6f9ec771085745aa8ea12df4e1a36, type: 2}
+    Chance: 0.5
   ResourceChances:
   - Resource: {fileID: 11400000, guid: 3c669f0eb12122747bf45ffa4487a9dd, type: 2}
     Chance: 0.3
