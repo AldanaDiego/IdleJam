@@ -17,6 +17,7 @@ public class SaveSystem : Singleton<SaveSystem>
     private SquadManager _squadManager;
     private ResourceStock _resourceStock;
     private UIStateManager _uiStateManager;
+    private TutorialLog _tutorialLog;
 
     private void Start()
     {
@@ -25,14 +26,16 @@ public class SaveSystem : Singleton<SaveSystem>
         _squadManager = SquadManager.GetInstance();
         _resourceStock = ResourceStock.GetInstance();
         _uiStateManager = UIStateManager.GetInstance();
+        _tutorialLog = TutorialLog.GetInstance();
 
         if (PlayerPrefs.GetInt(FROM_SAVE_FILE) != 0)
         {
             SaveFile save = LoadGame();
             _areaManager.SetupFromSave(save.Areas, save.Squads);
-            _droneManager.SetupFromSave(save.Squads);
+            _droneManager.SetupFromSave(save.Squads, save.UnlockedDroneData);
             _squadManager.SetupFromSave(save.Squads);
             _resourceStock.SetupFromSave(save.ResourceStocks);
+            _tutorialLog.SetupFromSave(save.TutorialLogSave);
         }
         StartCoroutine(FinishLoadGame());
     }
@@ -43,7 +46,9 @@ public class SaveSystem : Singleton<SaveSystem>
         {
             Areas = _areaManager.GetAreas(),
             Squads = _squadManager.GetAllSquads(),
-            ResourceStocks = _resourceStock.GetAllStocks()
+            ResourceStocks = _resourceStock.GetAllStocks(),
+            UnlockedDroneData = _droneManager.GetUnlockedDroneData(),
+            TutorialLogSave = _tutorialLog.GetTutorialLogSave()
         };
 
         string path = Application.persistentDataPath + "/savedata";
@@ -75,6 +80,8 @@ class SaveFile : ISerializationCallbackReceiver
 {
     public List<Area> Areas;
     public List<Squad> Squads;
+    public List<DroneData> UnlockedDroneData;
+    public TutorialLogSave TutorialLogSave;
     [NonSerialized] public Dictionary<ResourceData, int> ResourceStocks;
     
     [SerializeField] private List<ResourceAmount> StockList;

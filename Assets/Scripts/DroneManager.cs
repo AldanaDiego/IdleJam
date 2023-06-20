@@ -6,8 +6,10 @@ using System;
 public class DroneManager : Singleton<DroneManager>
 {
     [SerializeField] private List<DroneModel> _dronePrefabs;
+    [SerializeField] private DroneDB _unlockedDronesDB;
 
     private List<Drone> _drones;
+    private List<DroneData> _unlockedDrones;
     private Dictionary<DroneData, Transform> _droneModels;
     public event EventHandler<DroneData> OnDroneBuilt;
 
@@ -15,6 +17,7 @@ public class DroneManager : Singleton<DroneManager>
     {
         base.Awake();
         _drones = new List<Drone>();
+        _unlockedDrones = new List<DroneData>(_unlockedDronesDB.Drones);
     }
 
     private void Start()
@@ -26,7 +29,7 @@ public class DroneManager : Singleton<DroneManager>
         }
     }
 
-    public void SetupFromSave(List<Squad> squads)
+    public void SetupFromSave(List<Squad> squads, List<DroneData> unlockedDroneData)
     {
         foreach (Squad squad in squads)
         {
@@ -38,6 +41,7 @@ public class DroneManager : Singleton<DroneManager>
                 }
             }
         }
+        _unlockedDrones = unlockedDroneData;
     }
 
     public void BuildDrone(DroneData data)
@@ -62,5 +66,15 @@ public class DroneManager : Singleton<DroneManager>
     public List<Drone> GetAvailableDrones()
     {
         return _drones.FindAll(drone => drone.GetSquad() == -1);
+    }
+
+    public List<DroneData> GetUnlockedDroneData()
+    {
+        return _unlockedDrones;
+    }
+
+    public void UnlockDrone(DroneData drone)
+    {
+        _unlockedDrones.Add(drone);
     }
 }

@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class ConfigMenuManager : MonoBehaviour
 {
+    [SerializeField] private CanvasGroup _transitionScreen;
+
     private SaveSystem _saveSystem;
+    private const float EXIT_TRANSITION_TIME = 0.5f;
 
     private void Awake()
     {
@@ -21,6 +24,18 @@ public class ConfigMenuManager : MonoBehaviour
     public void OnSaveAndQuitClicked()
     {
         _saveSystem.SaveGame();
+        SceneManager.LoadScene("TitleScene");
+    }
+
+    private IEnumerator ExitScene()
+    {
+        _transitionScreen.gameObject.SetActive(true);
+        for (float i = 0; i < 1; i+= Time.deltaTime/EXIT_TRANSITION_TIME)
+        {
+            _transitionScreen.alpha = Mathf.Lerp(0f, 1f, i);
+            yield return new WaitForFixedUpdate();
+        }
+        _transitionScreen.alpha = 1f;
         SceneManager.LoadScene("TitleScene");
     }
 }

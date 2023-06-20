@@ -7810,7 +7810,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a204bface2eeb458d556e5196de630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _droneDB: {fileID: 11400000, guid: 6d1a6cf53578a2543ae8e87666317aca, type: 2}
   _droneNameText: {fileID: 1925671091}
   _droneImage: {fileID: 481818296}
   _droneCostUI:
@@ -20293,6 +20292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb51efd40eec479428fbc5e0e056031c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _transitionScreen: {fileID: 1246644197}
 --- !u!1 &1858709917
 GameObject:
   m_ObjectHideFlags: 0
@@ -23256,6 +23256,7 @@ MonoBehaviour:
     Prefab: {fileID: 4427609754711179374, guid: 5a88879b6241ccf4fbc9f7731bea125d, type: 3}
   - Drone: {fileID: 11400000, guid: 193e02297b4cf3a47a6f01bac3d20a68, type: 2}
     Prefab: {fileID: 1183175984711398402, guid: 0cd059e1636057a4d8096e01bdfacd57, type: 3}
+  _unlockedDronesDB: {fileID: 11400000, guid: a198b39f7cad09244ab4363e1448ed59, type: 2}
 --- !u!114 &2110458283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23411,6 +23412,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tutorialLogEntryDB: {fileID: 11400000, guid: be3c6f413aeb43d438da7a41929a1cd7, type: 2}
+  _cargoDroneData: {fileID: 11400000, guid: f6362db45ea6e224eaa0682b11809f25, type: 2}
+  _mutagenDroneData: {fileID: 11400000, guid: 193e02297b4cf3a47a6f01bac3d20a68, type: 2}
 --- !u!1001 &2114053708
 PrefabInstance:
   m_ObjectHideFlags: 0
