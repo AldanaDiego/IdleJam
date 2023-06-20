@@ -7,12 +7,16 @@ using System.Text;
 
 public class SaveSystem : Singleton<SaveSystem>
 {
+    [SerializeField] private CanvasGroup _transitionScreen;
+
     public const string FROM_SAVE_FILE = "FromSaveFile";
+    private const float TRANSITION_TIME = 1f;
 
     private AreaManager _areaManager;
     private DroneManager _droneManager;
     private SquadManager _squadManager;
     private ResourceStock _resourceStock;
+    private UIStateManager _uiStateManager;
 
     private void Start()
     {
@@ -20,6 +24,7 @@ public class SaveSystem : Singleton<SaveSystem>
         _droneManager = DroneManager.GetInstance();
         _squadManager = SquadManager.GetInstance();
         _resourceStock = ResourceStock.GetInstance();
+        _uiStateManager = UIStateManager.GetInstance();
 
         if (PlayerPrefs.GetInt(FROM_SAVE_FILE) != 0)
         {
@@ -28,8 +33,8 @@ public class SaveSystem : Singleton<SaveSystem>
             _droneManager.SetupFromSave(save.Squads);
             _squadManager.SetupFromSave(save.Squads);
             _resourceStock.SetupFromSave(save.ResourceStocks);
-            //TODO after all setups are ready, trigger event
         }
+        StartCoroutine(FinishLoadGame());
     }
 
     public void SaveGame()
@@ -50,6 +55,18 @@ public class SaveSystem : Singleton<SaveSystem>
         string path = Application.persistentDataPath + "/savedata";
         SaveFile save = JsonUtility.FromJson<SaveFile>(Encoding.UTF8.GetString(Convert.FromBase64String(File.ReadAllText(path))));
         return save;
+    }
+
+    private IEnumerator FinishLoadGame()
+    {
+        _uiStateManager.ChangeGameState(UIStateManager.GameState.IDLE);
+        for (float i = 0; i < 1; i+= Time.deltaTime/TRANSITION_TIME)
+        {
+            _transitionScreen.alpha = Mathf.Lerp(1f, 0f, i);
+            yield return new WaitForFixedUpdate();
+        }
+        _transitionScreen.alpha = 0f;
+        _transitionScreen.gameObject.SetActive(false);
     }
 }
 

@@ -32,6 +32,7 @@ public class ResourceStock : Singleton<ResourceStock>
     public void SetupFromSave(Dictionary<ResourceData, int> stocks)
     {
         _stock = stocks;
+        OnResourcesStockChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetResourceStock(ResourceData resource)
