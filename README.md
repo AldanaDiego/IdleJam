@@ -12,6 +12,7 @@ Game made in Unity for Summer Slow Jams 2023: Idle
 - [Sentry Robot](https://assetstore.unity.com/packages/3d/characters/robots/sentry-robot-222899) by Tvtig
 - [Delivery Robot](https://assetstore.unity.com/packages/3d/characters/robots/delivery-robot-185414) by Vergis
 - [Alien Ships Pack](https://assetstore.unity.com/packages/3d/vehicles/space/alien-ships-pack-131137) by Autarca
+- [Sci fi Drones](https://assetstore.unity.com/packages/3d/characters/robots/sci-fi-drones-90326) by Lukas Bobor
 
 ### Environment Models
 - [Sci Fi Base Assets](https://assetstore.unity.com/packages/3d/environments/sci-fi/sci-fi-base-assets-free-demo-pack-131284) by KLURA Design // Niklas Öhrberg
@@ -25,3 +26,6 @@ Game made in Unity for Summer Slow Jams 2023: Idle
 - [Sci-fi GUI skin](https://assetstore.unity.com/packages/2d/gui/sci-fi-gui-skin-15606) by 3d.rina
 - [Free Sci-fi Game Icons](https://krukowski.itch.io/free-sci-fi-game-icons) by Mark Krukowski
 - [Blazma Font](https://ggbot.itch.io/blazma-font) by GGBotNet
+
+### Music and Sound Effects
+- [Seamless Loop and Short Music](https://assetstore.unity.com/packages/audio/music/seamless-loop-and-short-music-107732) by Fantom

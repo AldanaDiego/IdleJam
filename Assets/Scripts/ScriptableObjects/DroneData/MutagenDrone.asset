@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MutagenDrone
   m_EditorClassIdentifier: 
   Name: Mutagen Drone
-  Image: {fileID: 21300006, guid: 56d84991286850f428b4e7df0cca7380, type: 3}
+  Image: {fileID: 21300000, guid: f2d8a15125291044ca258a8e7a63c651, type: 3}
   IsLeader: 0
   MiningSpeed: 1
   CargoCapacity: 1
