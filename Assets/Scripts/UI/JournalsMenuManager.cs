@@ -21,4 +21,9 @@ public class JournalsMenuManager : MonoBehaviour
     {
         _stateManager.ChangeGameState(UIStateManager.GameState.RESOURCES);
     }
+
+    public void OnTutorialButtonClicked()
+    {
+        _stateManager.ChangeGameState(UIStateManager.GameState.TUTORIAL);
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ExplorationEventScriptableObject", menuName = "ScriptableObjects/ExplorationEvent")]
-public class ExplorationEvent : ScriptableObject, IEqualityComparer<ExplorationEvent>
+public class ExplorationEvent : ScriptableObject
 {
     public enum EventType { NO_EVENT, RARE_ITEM, DISCOVER_AREA, BIOME_NATURAL_MUTATION, BIOME_INDUCED_MUTATION }
 
@@ -12,13 +12,8 @@ public class ExplorationEvent : ScriptableObject, IEqualityComparer<ExplorationE
     public EventType ExplorationEventType;
     public bool IsUniquePerExploration;
 
-    public bool Equals(ExplorationEvent x, ExplorationEvent y)
+    public bool Equals(ExplorationEvent other)
     {
-        return x.ExplorationEventType == y.ExplorationEventType;
-    }
-
-    public int GetHashCode(ExplorationEvent obj)
-    {
-        return (int) ExplorationEventType;
+        return ExplorationEventType == other.ExplorationEventType;
     }
 }

@@ -8,6 +8,7 @@ public class Biome : ScriptableObject
     public enum BiomeProperty { HUMIDITY = 0, TEMPERATURE = 1, VEGETATION = 2, STATIC = 3, POLLUTION = 4 };
 
     public string Name;
+    [TextArea(5,5)]
     public string Details;
     public Vector2 Coordinates;
     public List<BiomePropertyApplies> Properties;
