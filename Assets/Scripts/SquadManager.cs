@@ -78,6 +78,17 @@ public class SquadManager : Singleton<SquadManager>
         return false;
     }
 
+    public bool HasMutagenSquad()
+    {
+        int index = _squads.FindIndex(squad => squad.HasMutagenDrone());
+        return index >= 0;
+    }
+
+    public List<Squad> GetMutagenSquads()
+    {
+        return _squads.FindAll(squad => squad.HasMutagenDrone());
+    }
+
     public List<Squad> GetUnassignedSquads()
     {
         return _squads.FindAll(squad => (squad.GetDroneCount() > 1 && squad.GetArea() == -1));   

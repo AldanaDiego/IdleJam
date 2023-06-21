@@ -7,15 +7,18 @@ public class SideMenuManager : MonoBehaviour
 {
     [SerializeField] private Button _squadsButton;
     [SerializeField] private Button _assignButton;
+    [SerializeField] private Button _mutagenButton;
     [SerializeField] private Button _deployButton;
 
     private UIStateManager _stateManager;
     private SquadManager _squadManager;
+    private TutorialLog _tutorialLog;
 
     private void Start()
     {
         _stateManager = UIStateManager.GetInstance();
         _squadManager = SquadManager.GetInstance();
+        _tutorialLog = TutorialLog.GetInstance();
         _stateManager.OnStateChanged += OnUIStateChanged;
         UpdateButtonsInteractable();
     }
@@ -25,6 +28,8 @@ public class SideMenuManager : MonoBehaviour
         _squadsButton.interactable = _squadManager.GetSquadCount() > 0;
         _assignButton.interactable = _squadManager.HasReadySquads();
         _deployButton.interactable = _squadManager.HasAssignedSquads();
+        _mutagenButton.gameObject.SetActive(_tutorialLog.HasUnlockedMutagenDrone());
+        _mutagenButton.interactable = _squadManager.HasMutagenSquad();
     }
 
     private void OnUIStateChanged(object sender, UIStateManager.GameState newState)

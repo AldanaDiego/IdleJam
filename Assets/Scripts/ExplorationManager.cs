@@ -13,7 +13,7 @@ public class ExplorationManager : Singleton<ExplorationManager>
     private BiomeMutationManager _biomeMutationManager;
     private List<(Area, Biome)> _biomeChanges;
 
-    private const int EVENTS_PER_DEPLOY = 3;
+    private const int EVENTS_PER_DEPLOY = 5;
 
     public event EventHandler<SquadExplorationEvent[]> OnExplorationEventsTriggered;
 

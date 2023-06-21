@@ -17,6 +17,7 @@ public class SaveSystem : Singleton<SaveSystem>
     private SquadManager _squadManager;
     private ResourceStock _resourceStock;
     private UIStateManager _uiStateManager;
+    private BiomeMutationManager _biomeMutationManager;
     private TutorialLog _tutorialLog;
 
     private void Start()
@@ -26,6 +27,7 @@ public class SaveSystem : Singleton<SaveSystem>
         _squadManager = SquadManager.GetInstance();
         _resourceStock = ResourceStock.GetInstance();
         _uiStateManager = UIStateManager.GetInstance();
+        _biomeMutationManager = BiomeMutationManager.GetInstance();
         _tutorialLog = TutorialLog.GetInstance();
 
         if (PlayerPrefs.GetInt(FROM_SAVE_FILE) != 0)
@@ -36,6 +38,7 @@ public class SaveSystem : Singleton<SaveSystem>
             _squadManager.SetupFromSave(save.Squads);
             _resourceStock.SetupFromSave(save.ResourceStocks);
             _tutorialLog.SetupFromSave(save.TutorialLogSave);
+            _biomeMutationManager.SetupFromSave(save.UnlockedMutagens);
         }
         StartCoroutine(FinishLoadGame());
     }
@@ -48,6 +51,7 @@ public class SaveSystem : Singleton<SaveSystem>
             Squads = _squadManager.GetAllSquads(),
             ResourceStocks = _resourceStock.GetAllStocks(),
             UnlockedDroneData = _droneManager.GetUnlockedDroneData(),
+            UnlockedMutagens = _biomeMutationManager.GetUnlockedMutagens(),
             TutorialLogSave = _tutorialLog.GetTutorialLogSave()
         };
 
@@ -82,6 +86,7 @@ class SaveFile : ISerializationCallbackReceiver
     public List<Squad> Squads;
     public List<DroneData> UnlockedDroneData;
     public TutorialLogSave TutorialLogSave;
+    public List<Mutagen> UnlockedMutagens;
     [NonSerialized] public Dictionary<ResourceData, int> ResourceStocks;
     
     [SerializeField] private List<ResourceAmount> StockList;

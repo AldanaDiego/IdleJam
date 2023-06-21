@@ -6,6 +6,13 @@ public class BiomeMutationManager : Singleton<BiomeMutationManager>
 {
     [SerializeField] private BiomeDB _biomeDB;
     private Dictionary<int, Biome> _biomes;
+    private List<Mutagen> _unlockedMutagens;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _unlockedMutagens = new List<Mutagen>();
+    }
 
     private void Start()
     {
@@ -18,6 +25,11 @@ public class BiomeMutationManager : Singleton<BiomeMutationManager>
                 _biomes[CalculateID(biome)] = biome;
             }
         #endif
+    }
+
+    public void SetupFromSave(List<Mutagen> unlockedMutagens)
+    {
+        _unlockedMutagens = unlockedMutagens;
     }
 
     public Biome GetBiomeMutation(Biome biome, List<BiomePropertyApplies> propertiesChanged)
@@ -36,6 +48,16 @@ public class BiomeMutationManager : Singleton<BiomeMutationManager>
             }
         }
         return _biomes[id];
+    }
+
+    public List<Mutagen> GetUnlockedMutagens()
+    {
+        return _unlockedMutagens;
+    }
+
+    public void UnlockMutagen(Mutagen mutagen)
+    {
+        _unlockedMutagens.Add(mutagen);
     }
 
     private int CalculateID(Biome biome)

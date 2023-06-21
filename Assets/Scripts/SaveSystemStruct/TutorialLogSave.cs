@@ -9,4 +9,6 @@ public class TutorialLogSave
     public List<TutorialLogEntry> EntriesDB;
     public List<TutorialLogEntry> UnlockedEntries;
     public int ExplorationsFinished;
+    public bool HasUnlockedMutagenDrone;
+    public int ExplorationsSinceMutagenUnlocked;
 }

@@ -59,6 +59,12 @@ public class Squad : IComparable<Squad>
         return _area != -1;
     }
 
+    public bool HasMutagenDrone()
+    {
+        int index = _drones.FindIndex(drone => drone.GetDroneData().IsMutagen);
+        return index >= 0;
+    }
+
     public override string ToString()
     {
         return "Squad " + _squadNumber.ToString("D2");
