@@ -29,6 +29,7 @@ public class MutagenMenuManager : MonoBehaviour
         MainMenuSectionBehaviour menuBehaviour = GetComponent<MainMenuSectionBehaviour>();
         menuBehaviour.OnCreate = OnCreate;
         menuBehaviour.OnShow = OnShow;
+        menuBehaviour.OnHide = OnHide;
     }
 
     private void OnCreate()
@@ -49,6 +50,12 @@ public class MutagenMenuManager : MonoBehaviour
         _currentMutagenIndex = 0;
         UpdateSquadMenu();
         UpdateMutagenMenu();
+        AvailableDroneImage.OnAvailableDroneClicked += OnAvailableDroneClicked;
+    }
+
+    private void OnHide()
+    {
+        AvailableDroneImage.OnAvailableDroneClicked -= OnAvailableDroneClicked;
     }
 
     public void OnPreviousSquadButtonClick()
@@ -91,20 +98,46 @@ public class MutagenMenuManager : MonoBehaviour
         UpdateMutagenMenu();
     }
 
+    public void OnAddMutagenButtonClick()
+    {
+        Squad squad = _squads[_currentSquadIndex];
+        bool added = squad.AddMutagen(_mutagens[_currentMutagenIndex]);
+        if (added)
+        {
+            UpdateSquadMembers();
+        }
+    }
+
     private void UpdateSquadMenu()
     {
         Squad squad = _squads[_currentSquadIndex];
         _squadNameText.text = squad.ToString();
         _squadAssignedText.text = (squad.GetArea() != -1) ? "Assigned to Area " + squad.GetArea().ToString("D2") : "";
+        UpdateSquadMembers();
+    }
+
+    private void UpdateSquadMembers()
+    {
+        Squad squad = _squads[_currentSquadIndex];
         foreach (Transform child in _squadDronesList)
         {
             Destroy(child.gameObject);
         }
 
+        List<Mutagen> squadMutagens = squad.GetMutagens();
+        int i = 0;
         foreach (Drone drone in squad.GetDrones())
         {
             AvailableDroneImage image = Instantiate(_availableDroneImagePrefab, _squadDronesList);
-            image.Setup(drone);
+            if (drone.GetDroneData().IsMutagen && i < squadMutagens.Count)
+            {
+                image.Setup(drone, squadMutagens[i]);
+                i++;
+            }
+            else
+            {
+                image.Setup(drone);
+            }
         }
     }
 
@@ -113,5 +146,17 @@ public class MutagenMenuManager : MonoBehaviour
         Mutagen mutagen = _mutagens[_currentMutagenIndex];
         _mutagenNameText.text = mutagen.Name;
         _mutagenImage.sprite = mutagen.Image;
+    }
+
+    private void OnAvailableDroneClicked(object sender, Drone drone)
+    {
+        if (drone.GetDroneData().IsMutagen)
+        {
+            bool removed = _squads[_currentSquadIndex].RemoveMutagen();
+            if (removed)
+            {
+                UpdateSquadMembers();
+            }
+        }
     }
 }

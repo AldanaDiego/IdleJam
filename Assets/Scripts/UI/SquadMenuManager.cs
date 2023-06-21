@@ -33,7 +33,6 @@ public class SquadMenuManager : MonoBehaviour
     {
         _squadManager = SquadManager.GetInstance();
         _droneManager = DroneManager.GetInstance();
-        AvailableDroneImage.OnAvailableDroneClicked += OnAvailableDroneClicked;
         _transparent = Color.white;
         _transparent.a = 0f;
     }
@@ -92,10 +91,12 @@ public class SquadMenuManager : MonoBehaviour
         UpdateSquadMenu();
         _leftArrowButton.interactable = (_squadCount > 1);
         _rightArrowButton.interactable = (_squadCount > 1);
+        AvailableDroneImage.OnAvailableDroneClicked += OnAvailableDroneClicked;
     }
 
     public void OnHide()
     {
+        AvailableDroneImage.OnAvailableDroneClicked -= OnAvailableDroneClicked;
         foreach (Transform child in _availableDronesList)
         {
             Destroy(child.gameObject);

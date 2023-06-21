@@ -8,6 +8,7 @@ public class AvailableDroneImage : MonoBehaviour
 {
     [SerializeField] private Image _image;
     [SerializeField] private Button _button;
+    [SerializeField] private Image _mutagenImage;
     private Drone _drone;
     private Transform _transform;
 
@@ -22,6 +23,12 @@ public class AvailableDroneImage : MonoBehaviour
         _drone = drone;
         _transform = transform;
         _image.sprite = drone.GetImage();
+    }
+
+    public void Setup(Drone drone, Mutagen mutagen)
+    {
+        Setup(drone);
+        _mutagenImage.color = mutagen.Color;
     }
 
     public void MoveTo(Transform parent)

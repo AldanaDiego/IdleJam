@@ -5179,9 +5179,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 671264880}
-        m_TargetAssemblyTypeName: BuildMenuManager, Assembly-CSharp
-        m_MethodName: BuildDrone
+      - m_Target: {fileID: 2000241987}
+        m_TargetAssemblyTypeName: MutagenMenuManager, Assembly-CSharp
+        m_MethodName: OnAddMutagenButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

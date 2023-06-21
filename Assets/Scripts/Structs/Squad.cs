@@ -9,12 +9,14 @@ public class Squad : IComparable<Squad>
     [SerializeField] private List<Drone> _drones;
     [SerializeField] private int _area;
     [SerializeField] private int _squadNumber;
+    [SerializeField] private List<Mutagen> _mutagens;
 
     public Squad(int squadNumber)
     {
         _drones = new List<Drone>();
         _area = -1;
         _squadNumber = squadNumber;
+        _mutagens = new List<Mutagen>();
     }
 
     public int GetSquadNumber()
@@ -32,6 +34,10 @@ public class Squad : IComparable<Squad>
     {
         drone.SetSquad(-1);
         _drones.Remove(drone);
+        if (drone.GetDroneData().IsMutagen)
+        {
+            RemoveMutagen();
+        }
     }
 
     public int GetDroneCount()
@@ -63,6 +69,32 @@ public class Squad : IComparable<Squad>
     {
         int index = _drones.FindIndex(drone => drone.GetDroneData().IsMutagen);
         return index >= 0;
+    }
+
+    public bool AddMutagen(Mutagen mutagen)
+    {
+        int count = _drones.FindAll(drone => drone.GetDroneData().IsMutagen).Count;
+        if (count > _mutagens.Count)
+        {
+            _mutagens.Add(mutagen);
+            return true;
+        }
+        return false;
+    }
+
+    public bool RemoveMutagen()
+    {
+        if (_mutagens.Count > 0)
+        {
+            _mutagens.RemoveAt(_mutagens.Count - 1);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Mutagen> GetMutagens()
+    {
+        return _mutagens;
     }
 
     public override string ToString()
