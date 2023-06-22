@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Rainforest
   m_EditorClassIdentifier: 
   Name: Rainforest
-  Details: Rain is almost permanent on this tropical, dense vegetated area. Will
-    greatly slow down exploration
+  Details: Rain is almost permanent on this tropical, dense vegetated area.
   Coordinates: {x: 400, y: 50}
   Properties:
   - Property: 0

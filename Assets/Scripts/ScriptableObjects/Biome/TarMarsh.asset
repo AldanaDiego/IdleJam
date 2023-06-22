@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TarMarsh
   m_EditorClassIdentifier: 
   Name: Tar Marsh
-  Details: A deep swamp of extremely dangerous waters. Will greatly slow down exploration.
+  Details: A deep swamp of extremely dangerous waters.
   Coordinates: {x: 300, y: 150}
   Properties:
   - Property: 0

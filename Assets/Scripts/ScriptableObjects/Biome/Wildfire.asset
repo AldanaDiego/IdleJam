@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Wildfire
   Details: The pollution and high temperatures ensure that whatever vegetation grows
-    will be caught on fire. Can severely damage drones.
+    will be caught on fire.
   Coordinates: {x: 350, y: 150}
   Properties:
   - Property: 0

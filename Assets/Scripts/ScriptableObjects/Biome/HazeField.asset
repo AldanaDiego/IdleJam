@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: HazeField
   m_EditorClassIdentifier: 
   Name: Haze Field
-  Details: High humidity and pollution cover the area as a dense fog. May slow down
-    exploration.
+  Details: High humidity and pollution cover the area as a dense fog.
   Coordinates: {x: 100, y: 100}
   Properties:
   - Property: 0

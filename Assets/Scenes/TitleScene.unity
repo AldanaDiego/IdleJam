@@ -831,7 +831,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Fantastic Game (with no name yet)
+  m_text: Weatherbound
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e3d3204bb5a0d654abb0f152ba50953b, type: 2}
   m_sharedMaterial: {fileID: 822775433194406323, guid: e3d3204bb5a0d654abb0f152ba50953b, type: 2}

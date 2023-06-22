@@ -50,6 +50,39 @@ public class BiomeMutationManager : Singleton<BiomeMutationManager>
         return _biomes[id];
     }
 
+    public Biome GetBiomeMutation(Biome biome, List<Mutagen> mutagens)
+    {
+        int id = CalculateID(biome);
+        foreach (Mutagen mutagen in mutagens)
+        {
+            bool hasMutagenEffect = true;
+            foreach (BiomePropertyApplies property in biome.Properties)
+            {
+                if (property.Property == mutagen.BiomeProperty)
+                {
+                    hasMutagenEffect = property.Applies != mutagen.AppliesProperty;
+                    break;
+                }
+            }
+
+            if (!hasMutagenEffect)
+            {
+                continue;
+            }
+
+            int amount = (int)Mathf.Pow(2, (int)mutagen.BiomeProperty);   
+            if (mutagen.AppliesProperty)
+            {
+                id += amount;
+            }
+            else
+            {
+                id -= amount;
+            }
+        }
+        return _biomes[id];
+    }
+
     public List<Mutagen> GetUnlockedMutagens()
     {
         return _unlockedMutagens;

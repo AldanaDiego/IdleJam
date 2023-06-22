@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: ThornyShrubland
   m_EditorClassIdentifier: 
   Name: Thorny Shrubland
-  Details: A dry land filled by short, spiky vegetation. May damage drones. May slow
-    down exploration.
+  Details: A dry land filled by short, spiky vegetation.
   Coordinates: {x: 350, y: 100}
   Properties:
   - Property: 0

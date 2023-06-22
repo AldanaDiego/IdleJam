@@ -5,7 +5,8 @@ using UnityEngine;
 public class ExploreCameraManager : MonoBehaviour
 {
     [SerializeField] private Camera _environmentCamera;
-    
+    [SerializeField] private GameObject _cameraView;
+
     private ExploreLogManager _logManager;
     private EnvironmentsManager _environmentsManager;
     private DroneManager _droneManager;
@@ -15,6 +16,7 @@ public class ExploreCameraManager : MonoBehaviour
 
     private const float CAMERA_OFFSET = -15f;
     private const float CAMERA_Y_POS = 9.5f;
+    private const float CAMERA_COOLDOWN = 1f;
 
     private void Awake()
     {
@@ -37,6 +39,7 @@ public class ExploreCameraManager : MonoBehaviour
 
     private void OnHide()
     {
+        _cameraView.SetActive(false);
         HidePreviousEvent();
     }
 
@@ -71,12 +74,12 @@ public class ExploreCameraManager : MonoBehaviour
 
     private int GeneratePositionNumber()
     {
+        //Possible values: -8, -4, 0, 4, 8
         return (Random.Range(0, 3) * 4) * (Random.Range(0, 2) == 0 ? 1 : -1);
     }
 
     private void OnExploreLogShown(object sender, SquadExplorationEvent squadEvent)
     {
-        //TODO spawn squad units, spawn additional event props
         HidePreviousEvent();
         
         Vector2 cameraPosition = squadEvent.Area.GetBiome().Coordinates;
@@ -92,14 +95,21 @@ public class ExploreCameraManager : MonoBehaviour
             if (!drone.IsSquadLeader())
             {
                 Transform droneModel = Instantiate(_droneManager.GetDronePrefab(drone.GetDroneData()), _currentEnvironment);
-                //TODO set drone rotation
                 droneModel.localPosition = new Vector3(positions[i].x, droneModel.localPosition.y, positions[i].y);
+                droneModel.eulerAngles = new Vector3(0, Random.Range(0, 360), 0);
                 _currentSpawnedDrones.Add(droneModel);
                 i++;
             }
         }
 
+        StartCoroutine(TurnOnCamera());
+    }
+
+    private IEnumerator TurnOnCamera()
+    {
+        yield return new WaitForSeconds(CAMERA_COOLDOWN);
         _environmentCamera.gameObject.SetActive(true);
+        _cameraView.SetActive(true);
     }
 
     private void OnDestroy()

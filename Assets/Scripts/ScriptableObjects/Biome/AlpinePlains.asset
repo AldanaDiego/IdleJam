@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AlpinePlains
   m_EditorClassIdentifier: 
   Name: Alpine Plains
-  Details: High altitude rocky terrain. May slow down exploration.
+  Details: High altitude rocky terrain.
   Coordinates: {x: 100, y: 0}
   Properties:
   - Property: 0

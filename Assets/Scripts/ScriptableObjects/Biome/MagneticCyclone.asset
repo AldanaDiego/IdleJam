@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: MagneticCyclone
   m_EditorClassIdentifier: 
   Name: Magnetic Cyclone
-  Details: Strong winds caused by storm clouds. May damage drones. May slow down
-    exploration.
+  Details: Strong winds caused by storm clouds.
   Coordinates: {x: 200, y: 50}
   Properties:
   - Property: 0

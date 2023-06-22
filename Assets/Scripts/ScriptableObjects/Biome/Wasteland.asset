@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Wasteland
   m_EditorClassIdentifier: 
   Name: Wasteland
-  Details: A heavily polluted, hot and humid place where no live can prosper. Can
-    damage drones.
+  Details: A heavily polluted, hot and humid place where no live can prosper.
   Coordinates: {x: 200, y: 150}
   Properties:
   - Property: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Jungle
   m_EditorClassIdentifier: 
   Name: Jungle
-  Details: A tropical area bursting with dense vegetation. May slow down exploration
+  Details: A tropical area bursting with dense vegetation.
   Coordinates: {x: 400, y: 0}
   Properties:
   - Property: 0

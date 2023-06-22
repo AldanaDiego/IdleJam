@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FungiJungle
   m_EditorClassIdentifier: 
   Name: Fungi Jungle
-  Details: A dense jungle filled with mushrooms. Will greatly slow down exploration.
+  Details: A dense jungle filled with mushrooms.
   Coordinates: {x: 400, y: 100}
   Properties:
   - Property: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StormMountain
   m_EditorClassIdentifier: 
   Name: Storm Mountain
-  Details: Thunderclouds loom over this rocky terrain. May slow down exploration.
+  Details: Thunderclouds loom over this rocky terrain.
   Coordinates: {x: 100, y: 50}
   Properties:
   - Property: 0

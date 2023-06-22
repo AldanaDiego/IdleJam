@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: SpineconeForest
   m_EditorClassIdentifier: 
   Name: Spinecone Forest
-  Details: Trees have adapted to pollution by hardening their bark and seeds. May
-    damage drones.
+  Details: Trees have adapted to pollution by hardening their bark and seeds.
   Coordinates: {x: 250, y: 100}
   Properties:
   - Property: 0

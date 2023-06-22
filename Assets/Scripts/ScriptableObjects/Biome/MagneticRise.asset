@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Magnetic Rise
   Details: Static charges on a very dry environment cause unexpected gravitational
-    effects. Will greatly slow exploration.
+    effects.
   Coordinates: {x: 150, y: 50}
   Properties:
   - Property: 0

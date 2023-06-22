@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: DustStorm
   m_EditorClassIdentifier: 
   Name: Dust Storm
-  Details: Chaotic winds carry metallic particles. Can damage drones. May slow down
-    exploration.
+  Details: Chaotic winds carry metallic particles.
   Coordinates: {x: 50, y: 150}
   Properties:
   - Property: 0

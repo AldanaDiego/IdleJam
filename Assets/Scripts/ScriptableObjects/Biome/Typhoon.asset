@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Typhoon
   m_EditorClassIdentifier: 
   Name: Typhoon
-  Details: Conditions on this area mix to cause the strongest winds. Can damage drones.
-    Will greatly slow down exploration.
+  Details: Conditions on this area mix to cause the strongest winds.
   Coordinates: {x: 400, y: 150}
   Properties:
   - Property: 0

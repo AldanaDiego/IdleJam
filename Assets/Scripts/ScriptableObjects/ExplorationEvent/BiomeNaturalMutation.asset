@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BiomeNaturalMutation
   m_EditorClassIdentifier: 
   Name: Biome Natural Mutation
-  Description: The are is changing
+  Description: The area is changing
   ExplorationEventType: 3
   IsUniquePerExploration: 1

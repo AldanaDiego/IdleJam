@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Geyser Field
   Details: Steam bursts raise the temperature and spread noxious substances on the
-    air. May damage drones.
+    air.
   Coordinates: {x: 200, y: 100}
   Properties:
   - Property: 0

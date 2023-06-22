@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: AcidRain
   m_EditorClassIdentifier: 
   Name: Acid Rain
-  Details: The air pollution is spread everywhere through the rain. Can damage drones.
-    May slow down exploration.
+  Details: The air pollution is spread everywhere through the rain.
   Coordinates: {x: 100, y: 150}
   Properties:
   - Property: 0

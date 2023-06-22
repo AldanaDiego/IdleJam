@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Storm Forest
   Details: Storm clouds makes the environment under the trees darker and colder.
-    May slow down exploration.
   Coordinates: {x: 300, y: 50}
   Properties:
   - Property: 0

@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Swamp
   m_EditorClassIdentifier: 
   Name: Swamp
-  Details: A deep field of polluted water and dense vegetation. Will greatly slow
-    down exploration.
+  Details: A deep field of polluted water and dense vegetation.
   Coordinates: {x: 300, y: 100}
   Properties:
   - Property: 0

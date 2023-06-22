@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: DryThunder
   m_EditorClassIdentifier: 
   Name: Dry Thunder
-  Details: Frecuent lighting discharges cause heatwaves on the dry air. May damage
-    drones.
+  Details: Frecuent lighting discharges cause heatwaves on the dry air.
   Coordinates: {x: 350, y: 50}
   Properties:
   - Property: 0

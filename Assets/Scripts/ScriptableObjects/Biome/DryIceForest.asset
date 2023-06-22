@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Dry Ice Forest
   Details: Mutated vegetation releases substances that make the are colder of what
-    is naturally possible. Can damage drones. Will grealy slow down exploration.
+    is naturally possible.
   Coordinates: {x: 250, y: 150}
   Properties:
   - Property: 0

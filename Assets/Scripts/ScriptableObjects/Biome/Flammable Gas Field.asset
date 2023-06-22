@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Flammable Gas Field
   m_EditorClassIdentifier: 
   Name: Flammable Gas Field
-  Details: Static charges and volatile substances make the air flammable. Low chance
-    to cause severe damage to drones.
+  Details: Static charges and volatile substances make the air flammable.
   Coordinates: {x: 150, y: 150}
   Properties:
   - Property: 0

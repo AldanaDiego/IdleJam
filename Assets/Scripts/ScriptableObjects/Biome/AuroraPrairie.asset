@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Aurora Prairie
   Details: Ice particles and static charges in the atmosphere produce strong light
-    phenomena. May slow down exploration.
+    phenomena.
   Coordinates: {x: 250, y: 50}
   Properties:
   - Property: 0

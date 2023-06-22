@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Volcano
   m_EditorClassIdentifier: 
   Name: Volcano
-  Details: High temperatures, magma pools and dense smoke plague this land. Can severely
-    damage drones.
+  Details: High temperatures, magma pools and dense smoke plague this land.
   Coordinates: {x: 150, y: 100}
   Properties:
   - Property: 0

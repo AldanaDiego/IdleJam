@@ -6,12 +6,13 @@ using System;
 public class ExplorationManager : Singleton<ExplorationManager>
 {
     [SerializeField] private ExplorationEvent _defaultEvent;
+    [SerializeField] private ExplorationEvent _mutagenMutationEvent;
 
     private UIStateManager _stateManager;
     private AreaManager _areaManager;
     private SquadManager _squadManager;
     private BiomeMutationManager _biomeMutationManager;
-    private List<(Area, Biome)> _biomeChanges;
+    private Dictionary<Area,Biome> _biomeChanges;
 
     private const int EVENTS_PER_DEPLOY = 5;
 
@@ -25,7 +26,7 @@ public class ExplorationManager : Singleton<ExplorationManager>
         _biomeMutationManager = BiomeMutationManager.GetInstance();
         _stateManager.OnStateChanged += OnStateChanged;
         ExploreLogManager.OnExploreLogFinished += OnExploreLogFinished;
-        _biomeChanges = new List<(Area, Biome)>();
+        _biomeChanges = new Dictionary<Area, Biome>();
     }
 
     private void GenerateExploringEvents()
@@ -41,7 +42,15 @@ public class ExplorationManager : Singleton<ExplorationManager>
                 for (int i = 0; i < EVENTS_PER_DEPLOY; i++)
                 {
                     int index = currentSquad + (i * squadCountTotal);
-                    SquadExplorationEvent explorationEvent = new SquadExplorationEvent(squad, area, PickEventByChance(areaEvents));
+                    SquadExplorationEvent explorationEvent;
+                    if (i == EVENTS_PER_DEPLOY - 1 && squad.GetMutagens().Count > 0)
+                    {
+                        explorationEvent = new SquadExplorationEvent(squad, area, _mutagenMutationEvent);
+                    }
+                    else
+                    {
+                        explorationEvent = new SquadExplorationEvent(squad, area, PickEventByChance(areaEvents));
+                    }
                     triggeredEvents[index] = explorationEvent;
 
                     if (explorationEvent.ExplorationEvent.IsUniquePerExploration)
@@ -99,7 +108,6 @@ public class ExplorationManager : Singleton<ExplorationManager>
 
     private void HandleSquadExplorationEvent(SquadExplorationEvent squadEvent)
     {
-        //TODO this gonna be a big one D:
         bool canSquadMine = true;
         
         switch (squadEvent.ExplorationEvent.ExplorationEventType)
@@ -120,7 +128,6 @@ public class ExplorationManager : Singleton<ExplorationManager>
                 break;
 
             case ExplorationEvent.EventType.BIOME_NATURAL_MUTATION:
-                //TODO change properties to dictionary, fix this mess xd
                 int propertyChanged = UnityEngine.Random.Range(0, 3);
                 Biome biome = squadEvent.Area.GetBiome();
                 List<BiomePropertyApplies> biomeChanges = new List<BiomePropertyApplies>();
@@ -128,8 +135,24 @@ public class ExplorationManager : Singleton<ExplorationManager>
                 biomeChanges.Add(new BiomePropertyApplies(isApplied.Property, !isApplied.Applies));
 
                 Biome newBiome = _biomeMutationManager.GetBiomeMutation(biome, biomeChanges);
-                _biomeChanges.Add((squadEvent.Area, newBiome));
+                _biomeChanges[squadEvent.Area] = newBiome;
                 squadEvent.EventDetails = $"{squadEvent.Area} " + GetBiomePropertyChangeMessage(isApplied.Property, !isApplied.Applies);
+                break;
+
+            case ExplorationEvent.EventType.BIOME_INDUCED_MUTATION:
+                List<Mutagen> mutagens = squadEvent.Squad.GetMutagens();
+                biome = _biomeChanges.ContainsKey(squadEvent.Area) ? _biomeChanges[squadEvent.Area] : squadEvent.Area.GetBiome();
+                newBiome = _biomeMutationManager.GetBiomeMutation(biome, mutagens);
+                _biomeChanges[squadEvent.Area] = newBiome;
+                if (mutagens.Count == 1)
+                {
+                    squadEvent.EventDetails = $"Through mutagens, {squadEvent.Area} " + GetBiomePropertyChangeMessage(mutagens[0].BiomeProperty, mutagens[0].AppliesProperty);
+                }
+                else
+                {
+                    squadEvent.EventDetails = $"Through mutagens, {squadEvent.Area} is changing";
+                }
+                
                 break;
 
             case ExplorationEvent.EventType.NO_EVENT:
