@@ -10,6 +10,7 @@ public class DroneData : ScriptableObject, ISerializationCallbackReceiver
     public Dictionary<ResourceData, int> Cost;
     public bool IsLeader;
     public bool IsMutagen;
+    public bool IsCargo;
     public int MiningSpeed;
     public int CargoCapacity;
     public int MaxHp;

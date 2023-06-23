@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Energy
   IsBasicResource: 1
-  InitialAmount: 4
+  InitialAmount: 20
   IsSingleFind: 0

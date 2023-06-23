@@ -97,6 +97,11 @@ public class Squad : IComparable<Squad>
         return _mutagens;
     }
 
+    public List<Drone> GetCargoDrones()
+    {
+        return _drones.FindAll(drone => drone.GetDroneData().IsCargo);
+    }
+
     public override string ToString()
     {
         return "Squad " + _squadNumber.ToString("D2");

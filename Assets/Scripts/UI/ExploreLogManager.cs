@@ -55,8 +55,10 @@ public class ExploreLogManager : MonoBehaviour
     private IEnumerator ShowLogMessages(SquadExplorationEvent[] squadEvents)
     {
         TextMeshProUGUI log;
+        SortedSet<Squad> squads = new SortedSet<Squad>();
         foreach(SquadExplorationEvent squadEvent in squadEvents)
         {
+            squads.Add(squadEvent.Squad);
             if (squadEvent.HasCameraEvent)
             {
                 OnExploreLogShown?.Invoke(this, squadEvent);
@@ -65,6 +67,37 @@ public class ExploreLogManager : MonoBehaviour
             log = Instantiate(_logTextPrefab, _exploreLogList);
             log.text = squadEvent.ToString();
             _scroll.verticalNormalizedPosition = 0f;
+        }
+
+        foreach(Squad squad in squads)
+        {
+            int basicResourceCount = 0;
+            int rareResourceCount = 0;
+            foreach (Drone drone in squad.GetDrones())
+            {
+                foreach ((ResourceData resource, int amount) in drone.GetResourceCargo())
+                {
+                    if (resource.IsBasicResource)
+                    {
+                        basicResourceCount += amount;
+                    }
+                    else
+                    {
+                        rareResourceCount += amount;
+                    }
+                }
+            }
+
+            string squadSummary = $">{squad}: Total findings {basicResourceCount} resources";
+            if (rareResourceCount > 0)
+            {
+                squadSummary += $" and {rareResourceCount} rare resources";
+            }
+
+            log = Instantiate(_logTextPrefab, _exploreLogList);
+            log.text = squadSummary;
+            _scroll.verticalNormalizedPosition = 0f;
+            yield return new WaitForSeconds(LOG_COOLDOWN);
         }
         
         log = Instantiate(_logTextPrefab, _exploreLogList);

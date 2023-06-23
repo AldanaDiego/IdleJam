@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Scrap Metal
   IsBasicResource: 1
-  InitialAmount: 4
+  InitialAmount: 10
   IsSingleFind: 0

@@ -31,8 +31,6 @@ MonoBehaviour:
     Chance: 0.1
   - Event: {fileID: 11400000, guid: 04b263e174dbee344b1dcdd0894a35fe, type: 2}
     Chance: 0.01
-  - Event: {fileID: 11400000, guid: 8bd6f9ec771085745aa8ea12df4e1a36, type: 2}
-    Chance: 0.5
   ResourceChances:
   - Resource: {fileID: 11400000, guid: 3c669f0eb12122747bf45ffa4487a9dd, type: 2}
     Chance: 0.3

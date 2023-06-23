@@ -86,22 +86,47 @@ public class ExplorationManager : Singleton<ExplorationManager>
     private void MineResources(Squad squad, Area area)
     {
         List<ResourceChance> basicResourceChances = area.GetBiome().ResourceChances.FindAll(chance => chance.Resource.IsBasicResource);
+        List<Drone> cargoDrones = squad.GetCargoDrones();
         foreach (Drone drone in squad.GetDrones())
         {
             if (drone.CanMine())
             {
-                float totalChance = UnityEngine.Random.value;
-                ResourceData mineResource = null;
-                foreach (ResourceChance resourceChance in basicResourceChances)
+                if (drone.CanAddCargo())
                 {
-                    totalChance -= resourceChance.Chance;
-                    if (totalChance <= 0f)
+                    float totalChance = UnityEngine.Random.value;
+                    ResourceData mineResource = null;
+                    foreach (ResourceChance resourceChance in basicResourceChances)
                     {
-                        mineResource = resourceChance.Resource;
-                        break;
+                        totalChance -= resourceChance.Chance;
+                        if (totalChance <= 0f)
+                        {
+                            mineResource = resourceChance.Resource;
+                            break;
+                        }
+                    }
+                    drone.AddCargo(mineResource);
+                }
+                else
+                {
+                    foreach (Drone cargoDrone in cargoDrones)
+                    {
+                        if (cargoDrone.CanAddCargo())
+                        {
+                            float totalChance = UnityEngine.Random.value;
+                            ResourceData mineResource = null;
+                            foreach (ResourceChance resourceChance in basicResourceChances)
+                            {
+                                totalChance -= resourceChance.Chance;
+                                if (totalChance <= 0f)
+                                {
+                                    mineResource = resourceChance.Resource;
+                                    break;
+                                }
+                            }
+                            cargoDrone.AddCargo(mineResource, drone.GetMiningSpeed());
+                        }
                     }
                 }
-                drone.AddCargo(mineResource);
             }
         }
     }
@@ -156,6 +181,16 @@ public class ExplorationManager : Singleton<ExplorationManager>
                 break;
 
             case ExplorationEvent.EventType.NO_EVENT:
+                /*
+                //TODO
+                string mineResult = MineResources(squadEvent.Squad, squadEvent.Area);
+                if (mineResult != null)
+                {
+                    squadEvent.EventDetails = mineResult;
+                }
+                canSquadMine = false;
+                */
+                break;
             default:
                 break;
         }

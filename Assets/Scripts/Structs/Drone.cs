@@ -101,7 +101,12 @@ public class Drone : ISerializationCallbackReceiver
 
     public bool CanMine()
     {
-        return (_data.MiningSpeed > 0) && (_data.CargoCapacity - _currentCargo > 0);
+        return (_data.MiningSpeed > 0);
+    }
+
+    public bool CanAddCargo()
+    {
+        return (_data.CargoCapacity - _currentCargo > 0);
     }
 
     public override string ToString()
