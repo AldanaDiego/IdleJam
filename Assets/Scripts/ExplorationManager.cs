@@ -71,7 +71,7 @@ public class ExplorationManager : Singleton<ExplorationManager>
 
     private ExplorationEvent PickEventByChance(List<ExplorationEventChance> eventChances)
     {
-        float totalChance = UnityEngine.Random.value;
+        float totalChance = (float) Math.Round((double)UnityEngine.Random.value, 2);
         foreach (ExplorationEventChance eventChance in eventChances)
         {
             totalChance -= eventChance.Chance;
@@ -83,17 +83,18 @@ public class ExplorationManager : Singleton<ExplorationManager>
         return _defaultEvent;
     }
 
-    private void MineResources(Squad squad, Area area)
+    private bool MineResources(Squad squad, Area area)
     {
         List<ResourceChance> basicResourceChances = area.GetBiome().ResourceChances.FindAll(chance => chance.Resource.IsBasicResource);
         List<Drone> cargoDrones = squad.GetCargoDrones();
+        bool hasMined = false;
         foreach (Drone drone in squad.GetDrones())
         {
             if (drone.CanMine())
             {
                 if (drone.CanAddCargo())
                 {
-                    float totalChance = UnityEngine.Random.value;
+                    float totalChance = (float) Math.Round((double)UnityEngine.Random.value, 2);
                     ResourceData mineResource = null;
                     foreach (ResourceChance resourceChance in basicResourceChances)
                     {
@@ -105,6 +106,7 @@ public class ExplorationManager : Singleton<ExplorationManager>
                         }
                     }
                     drone.AddCargo(mineResource);
+                    hasMined = true;
                 }
                 else
                 {
@@ -112,7 +114,7 @@ public class ExplorationManager : Singleton<ExplorationManager>
                     {
                         if (cargoDrone.CanAddCargo())
                         {
-                            float totalChance = UnityEngine.Random.value;
+                            float totalChance = (float) Math.Round((double)UnityEngine.Random.value, 2);
                             ResourceData mineResource = null;
                             foreach (ResourceChance resourceChance in basicResourceChances)
                             {
@@ -124,11 +126,13 @@ public class ExplorationManager : Singleton<ExplorationManager>
                                 }
                             }
                             cargoDrone.AddCargo(mineResource, drone.GetMiningSpeed());
+                            hasMined = true;
                         }
                     }
                 }
             }
         }
+        return hasMined;
     }
 
     private void HandleSquadExplorationEvent(SquadExplorationEvent squadEvent)
@@ -138,7 +142,12 @@ public class ExplorationManager : Singleton<ExplorationManager>
         switch (squadEvent.ExplorationEvent.ExplorationEventType)
         {
             case ExplorationEvent.EventType.RARE_ITEM:
-                canSquadMine = MineRareResource(squadEvent.Squad, squadEvent.Area);
+                MineRareResource(squadEvent.Squad, squadEvent.Area, out bool isSingleFind, out bool hasMined);
+                canSquadMine = isSingleFind;
+                if (!hasMined)
+                {
+                    squadEvent.EventDetails = "Full capacity reached. Can't gather more resources";
+                }
                 break;
 
             case ExplorationEvent.EventType.DISCOVER_AREA:
@@ -181,15 +190,13 @@ public class ExplorationManager : Singleton<ExplorationManager>
                 break;
 
             case ExplorationEvent.EventType.NO_EVENT:
-                /*
-                //TODO
-                string mineResult = MineResources(squadEvent.Squad, squadEvent.Area);
-                if (mineResult != null)
+                
+                bool mineSuccess = MineResources(squadEvent.Squad, squadEvent.Area);
+                if (!mineSuccess)
                 {
-                    squadEvent.EventDetails = mineResult;
+                    squadEvent.EventDetails = $"Full capacity reached. Can't gather more resources";
                 }
                 canSquadMine = false;
-                */
                 break;
             default:
                 break;
@@ -220,11 +227,12 @@ public class ExplorationManager : Singleton<ExplorationManager>
         }
     }
 
-    private bool MineRareResource(Squad squad, Area area)
+    private void MineRareResource(Squad squad, Area area, out bool isSingleFind, out bool hasMined)
     {
         List<ResourceChance> rareResourceChances = area.GetBiome().ResourceChances.FindAll(chance => !chance.Resource.IsBasicResource);
-        float totalChance = UnityEngine.Random.value;
+        float totalChance = (float) Math.Round((double)UnityEngine.Random.value, 2);
         ResourceData mineResource = null;
+        hasMined = false;
         foreach (ResourceChance resourceChance in rareResourceChances)
         {
             totalChance -= resourceChance.Chance;
@@ -237,26 +245,43 @@ public class ExplorationManager : Singleton<ExplorationManager>
 
         if (mineResource.IsSingleFind)
         {
+            isSingleFind = true;
             foreach (Drone drone in squad.GetDrones())
             {
                 if (drone.AddCargo(mineResource, 1))
                 {
+                    hasMined = true;
                     break;
                 }
             }
         }
         else
         {
+            isSingleFind = false;
+            List<Drone> cargoDrones = squad.GetCargoDrones();
             foreach (Drone drone in squad.GetDrones())
             {
                 if (drone.CanMine())
                 {
-                    drone.AddCargo(mineResource);
+                    if (drone.CanAddCargo())
+                    {
+                        drone.AddCargo(mineResource);
+                        hasMined = true;
+                    }
+                    else
+                    {
+                        foreach (Drone cargoDrone in cargoDrones)
+                        {
+                            if (cargoDrone.CanAddCargo())
+                            {
+                                cargoDrone.AddCargo(mineResource, drone.GetMiningSpeed());
+                                hasMined = true;
+                            }
+                        }
+                    }
                 }
             }
         }
-
-        return mineResource.IsSingleFind;
     }
 
     private void ApplyBiomeChanges()

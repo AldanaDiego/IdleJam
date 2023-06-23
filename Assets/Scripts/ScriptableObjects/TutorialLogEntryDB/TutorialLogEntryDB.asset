@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TutorialLogEntries:
   - {fileID: 11400000, guid: a4e1af1b6b7682545805ef2bbb2f8bf1, type: 2}
+  - {fileID: 11400000, guid: ab2058ebd03b04a4d9788f36c374f5c0, type: 2}
+  - {fileID: 11400000, guid: c65633b2800a98548ae9ec9be300bc14, type: 2}
+  - {fileID: 11400000, guid: d4cf7ecdb62f2e64f8471238e0ba868f, type: 2}
+  - {fileID: 11400000, guid: 39a322f491b7fc24288820b5f8bd8a05, type: 2}

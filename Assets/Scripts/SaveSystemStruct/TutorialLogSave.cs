@@ -9,6 +9,9 @@ public class TutorialLogSave
     public List<TutorialLogEntry> EntriesDB;
     public List<TutorialLogEntry> UnlockedEntries;
     public int ExplorationsFinished;
-    public bool HasUnlockedMutagenDrone;
+    public bool HasBuiltScannerDrone;
+    public bool HasBuiltMinerDrone;
+    public bool HasBuiltCargoDrone;
+    public bool HasBuiltMutagenDrone;
     public int ExplorationsSinceMutagenUnlocked;
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TutorialLog : Singleton<TutorialLog>
 {
@@ -10,6 +11,8 @@ public class TutorialLog : Singleton<TutorialLog>
     [SerializeField] private MutagenDB _naturalMutagens;
     [SerializeField] private MutagenDB _chemicalMutagens;
 
+    public event EventHandler<string> OnFeatureUnlocked;
+
     private ExplorationManager _explorationManager;
     private DroneManager _droneManager;
     private BiomeMutationManager _biomeMutationManager;
@@ -18,7 +21,11 @@ public class TutorialLog : Singleton<TutorialLog>
     
     private int _explorationsFinished;
     private int _explorationsSinceMutagenUnlocked;
-    private bool _hasUnlockedMutagenDrone;
+    
+    private bool _hasBuiltScannerDrone;
+    private bool _hasBuiltMinerDrone;
+    private bool _hasBuiltCargoDrone;
+    private bool _hasBuiltMutagenDrone;
 
     protected override void Awake()
     {
@@ -28,7 +35,10 @@ public class TutorialLog : Singleton<TutorialLog>
         UnlockEntriesByMethod(TutorialLogEntry.TutorialUnlockMethod.DEFAULT);
         _explorationsFinished = 0;
         _explorationsSinceMutagenUnlocked = 0;
-        _hasUnlockedMutagenDrone = false;
+        _hasBuiltScannerDrone = false;
+        _hasBuiltMinerDrone = false;
+        _hasBuiltCargoDrone = false;
+        _hasBuiltMutagenDrone = false;
     }
 
     private void Start()
@@ -54,7 +64,7 @@ public class TutorialLog : Singleton<TutorialLog>
         _entriesDB = save.EntriesDB;
         _unlockedEntries = save.UnlockedEntries;
         _explorationsFinished = save.ExplorationsFinished;
-        _hasUnlockedMutagenDrone = save.HasUnlockedMutagenDrone;
+        _hasBuiltMutagenDrone = save.HasBuiltMutagenDrone;
         _explorationsSinceMutagenUnlocked = save.ExplorationsSinceMutagenUnlocked;
     }
 
@@ -70,52 +80,75 @@ public class TutorialLog : Singleton<TutorialLog>
             EntriesDB = _entriesDB,
             UnlockedEntries = _unlockedEntries,
             ExplorationsFinished = _explorationsFinished,
-            HasUnlockedMutagenDrone = _hasUnlockedMutagenDrone,
+            HasBuiltScannerDrone = _hasBuiltScannerDrone,
+            HasBuiltMinerDrone = _hasBuiltMinerDrone,
+            HasBuiltCargoDrone = _hasBuiltCargoDrone,
+            HasBuiltMutagenDrone = _hasBuiltMutagenDrone,
             ExplorationsSinceMutagenUnlocked = _explorationsSinceMutagenUnlocked
         };
     }
     
-    public bool HasUnlockedMutagenDrone()
+    public bool HasBuiltMutagenDrone()
     {
-        return _hasUnlockedMutagenDrone;
+        return _hasBuiltMutagenDrone;
     }
 
     private void OnExplorationEventsTriggered(object sender, SquadExplorationEvent[] squadEVents)
     {
         _explorationsFinished++;
-        if (_hasUnlockedMutagenDrone)
+        if (_hasBuiltMutagenDrone)
         {
             _explorationsSinceMutagenUnlocked++;
-        }
-        if (_explorationsFinished == 1)
-        {
-            _droneManager.UnlockDrone(_cargoDroneData);
         }
 
         if (_explorationsFinished == 2)
         {
-            _droneManager.UnlockDrone(_mutagenDroneData);
-            _hasUnlockedMutagenDrone = true;
-
+            _droneManager.UnlockDrone(_cargoDroneData);
+            OnFeatureUnlocked?.Invoke(this, "Cargo Drone Unlocked");
         }
 
-        if (_explorationsSinceMutagenUnlocked == 1)
+        if (_explorationsFinished == 7)
+        {
+            _droneManager.UnlockDrone(_mutagenDroneData);
+            OnFeatureUnlocked?.Invoke(this, "Mutagen Drone Unlocked");
+        }
+
+        if (_explorationsSinceMutagenUnlocked == 5)
         {
             foreach (Mutagen mutagen in _chemicalMutagens.Mutagens)
             {
                 _biomeMutationManager.UnlockMutagen(mutagen);
+                OnFeatureUnlocked?.Invoke(this, "New Mutagens Unlocked");
             }
         }
     }
 
     private void OnDroneBuilt(object sender, DroneData data)
     {
-        if (data == _mutagenDroneData)
+        if (data.IsMutagen && !_hasBuiltMutagenDrone)
         {
+            UnlockEntriesByMethod(TutorialLogEntry.TutorialUnlockMethod.ON_MUTAGEN_BUILT);
             foreach (Mutagen mutagen in _naturalMutagens.Mutagens)
             {
                 _biomeMutationManager.UnlockMutagen(mutagen);
             }
+            OnFeatureUnlocked?.Invoke(this, "Mutagens Unlocked");
+            _hasBuiltMutagenDrone = true;
+        }
+        else if (data.IsCargo && !_hasBuiltCargoDrone)
+        {
+            UnlockEntriesByMethod(TutorialLogEntry.TutorialUnlockMethod.ON_CARGO_BUILT);
+            _hasBuiltCargoDrone = true;
+        }
+        else if (data.IsLeader && !_hasBuiltScannerDrone)
+        {
+            UnlockEntriesByMethod(TutorialLogEntry.TutorialUnlockMethod.ON_SCANNER_BUILT);
+            _hasBuiltScannerDrone = true;
+        }
+        else if (!_hasBuiltMinerDrone)
+        {
+            UnlockEntriesByMethod(TutorialLogEntry.TutorialUnlockMethod.ON_MINER_BUILT);
+            _hasBuiltMinerDrone = true;
         }
     }
 }

@@ -14,7 +14,7 @@ public class ExploreLogManager : MonoBehaviour
 
     private ExplorationManager _explorationManager;
 
-    private const float LOG_COOLDOWN = 2.5f;
+    private const float LOG_COOLDOWN = 2f;
 
     public event EventHandler<SquadExplorationEvent> OnExploreLogShown;
     public static event EventHandler OnExploreLogFinished;

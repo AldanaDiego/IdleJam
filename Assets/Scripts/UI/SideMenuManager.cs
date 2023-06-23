@@ -28,7 +28,7 @@ public class SideMenuManager : MonoBehaviour
         _squadsButton.interactable = _squadManager.GetSquadCount() > 0;
         _assignButton.interactable = _squadManager.HasReadySquads();
         _deployButton.interactable = _squadManager.HasAssignedSquads();
-        _mutagenButton.gameObject.SetActive(_tutorialLog.HasUnlockedMutagenDrone());
+        _mutagenButton.gameObject.SetActive(_tutorialLog.HasBuiltMutagenDrone());
         _mutagenButton.interactable = _squadManager.HasMutagenSquad();
     }
 
