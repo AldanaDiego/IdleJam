@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b58b41b500e33df4c8308f9aaa0436d8, type: 3}
-  m_Name: CargoDrone
+  m_Name: Biomes
   m_EditorClassIdentifier: 
-  Name: Cargo Drone
-  Content: Once other Drones have reached their full capacity, the Cargo Drone can
-    take some of their load. A Miner Drone paired with a Cargo Drone can gather and
-    retrieve way more resources!
-  UnlockMethod: 3
+  Name: Biomes
+  Content: Each Area corresponds to a Biome, which determines what kind of resources
+    are available. Some rare resources only show in certain Biomes. Biomes can be
+    changed through Mutagens, but sometimes they will change naturally on their own.
+  UnlockMethod: 4

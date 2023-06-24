@@ -19,6 +19,7 @@ public class SaveSystem : Singleton<SaveSystem>
     private UIStateManager _uiStateManager;
     private BiomeMutationManager _biomeMutationManager;
     private TutorialLog _tutorialLog;
+    private MCJournalLog _journalLog;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class SaveSystem : Singleton<SaveSystem>
         _uiStateManager = UIStateManager.GetInstance();
         _biomeMutationManager = BiomeMutationManager.GetInstance();
         _tutorialLog = TutorialLog.GetInstance();
+        _journalLog = MCJournalLog.GetInstance();
 
         if (PlayerPrefs.GetInt(FROM_SAVE_FILE) != 0)
         {
@@ -39,6 +41,7 @@ public class SaveSystem : Singleton<SaveSystem>
             _resourceStock.SetupFromSave(save.ResourceStocks);
             _tutorialLog.SetupFromSave(save.TutorialLogSave);
             _biomeMutationManager.SetupFromSave(save.UnlockedMutagens);
+            _journalLog.SetupFromSave(save.JournalUnlockedEntries, save.ExplorationsFinished);
         }
         StartCoroutine(FinishLoadGame());
     }
@@ -52,7 +55,9 @@ public class SaveSystem : Singleton<SaveSystem>
             ResourceStocks = _resourceStock.GetAllStocks(),
             UnlockedDroneData = _droneManager.GetUnlockedDroneData(),
             UnlockedMutagens = _biomeMutationManager.GetUnlockedMutagens(),
-            TutorialLogSave = _tutorialLog.GetTutorialLogSave()
+            TutorialLogSave = _tutorialLog.GetTutorialLogSave(),
+            JournalUnlockedEntries = _journalLog.GetUnlockedEntries(),
+            ExplorationsFinished = _journalLog.GetExplorationsFinished()
         };
 
         string path = Application.persistentDataPath + "/savedata";
@@ -87,6 +92,8 @@ class SaveFile : ISerializationCallbackReceiver
     public List<DroneData> UnlockedDroneData;
     public TutorialLogSave TutorialLogSave;
     public List<Mutagen> UnlockedMutagens;
+    public List<JournalLogEntry> JournalUnlockedEntries;
+    public int ExplorationsFinished;
     [NonSerialized] public Dictionary<ResourceData, int> ResourceStocks;
     
     [SerializeField] private List<ResourceAmount> StockList;

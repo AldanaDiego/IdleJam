@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b58b41b500e33df4c8308f9aaa0436d8, type: 3}
-  m_Name: CargoDrone
+  m_Name: ChemicalMutagens
   m_EditorClassIdentifier: 
-  Name: Cargo Drone
-  Content: Once other Drones have reached their full capacity, the Cargo Drone can
-    take some of their load. A Miner Drone paired with a Cargo Drone can gather and
-    retrieve way more resources!
-  UnlockMethod: 3
+  Name: Static & Pollution
+  Content: Atmospheric static and pollution are not conditions present naturally
+    on Biomes. They can be introduced through Mutagens, but will often result in
+    dangerous environments. However they could be the key to gathering new rare resources.
+  UnlockMethod: 5

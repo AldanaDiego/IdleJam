@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: MutagenDrone
   m_EditorClassIdentifier: 
   Name: Mutagen Drone
-  Content: Mutagen drone
+  Content: The Mutagen Drone can be used to change environment conditions on the
+    Areas it deploys to. Changing these conditions will make the Biome of an Area
+    to change!
   UnlockMethod: 4

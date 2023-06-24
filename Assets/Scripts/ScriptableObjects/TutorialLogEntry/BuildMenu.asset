@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: BuildMenu
   m_EditorClassIdentifier: 
   Name: Build Menu
-  Content: In the build menu you can build drones! Wow!
+  Content: Lets start by building some Drones. I'll need at least one Scanner Drone
+    and one Miner Drone to deploy them into exploration.
   UnlockMethod: 0

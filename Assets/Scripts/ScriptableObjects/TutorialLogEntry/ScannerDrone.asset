@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: ScannerDrone
   m_EditorClassIdentifier: 
   Name: Scanner Drone
-  Content: The scanner drone unlocks squads! Wow!
+  Content: The Scanner Drone will allow me to keep contact with Drones I deploy.
+    Each Scanner Drone can lead a Squad of five Drones! I need rare Radars to build
+    them though.
   UnlockMethod: 1

@@ -5,6 +5,7 @@ using UnityEngine;
 public class AreaManager : Singleton<AreaManager>
 {
     [SerializeField] private BiomeDB _biomeDB;
+    [SerializeField] private BiomeDB _naturalBiomeDB;
     [SerializeField] private Biome _startBiome;
 
     private const int AREA_COUNT_LIMIT = 2;
@@ -52,7 +53,7 @@ public class AreaManager : Singleton<AreaManager>
 
     public void DiscoverNewArea()
     {
-        int index = Random.Range(0, _biomeDB.Biomes.Count);
-        _areas.Add(new Area(_areas.Count, _biomeDB.Biomes[index]));
+        int index = Random.Range(0, _naturalBiomeDB.Biomes.Count);
+        _areas.Add(new Area(_areas.Count, _naturalBiomeDB.Biomes[index]));
     }
 }

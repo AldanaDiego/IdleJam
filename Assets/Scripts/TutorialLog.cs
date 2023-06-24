@@ -93,6 +93,11 @@ public class TutorialLog : Singleton<TutorialLog>
         return _hasBuiltMutagenDrone;
     }
 
+    public int GetExplorationsFinished()
+    {
+        return _explorationsFinished;
+    }
+
     private void OnExplorationEventsTriggered(object sender, SquadExplorationEvent[] squadEVents)
     {
         _explorationsFinished++;
@@ -118,8 +123,10 @@ public class TutorialLog : Singleton<TutorialLog>
             foreach (Mutagen mutagen in _chemicalMutagens.Mutagens)
             {
                 _biomeMutationManager.UnlockMutagen(mutagen);
-                OnFeatureUnlocked?.Invoke(this, "New Mutagens Unlocked");
+                
             }
+            UnlockEntriesByMethod(TutorialLogEntry.TutorialUnlockMethod.ON_CHEMICAL_MUTAGENS_UNLOCKED);
+            OnFeatureUnlocked?.Invoke(this, "New Mutagens Unlocked");
         }
     }
 
