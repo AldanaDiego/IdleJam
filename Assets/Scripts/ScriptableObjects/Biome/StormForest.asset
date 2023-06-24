@@ -27,8 +27,12 @@ MonoBehaviour:
   - Property: 4
     Applies: 0
   ExplorationEventChances:
+  - Event: {fileID: 11400000, guid: c359545242cdc264180a0f0b5bc01c19, type: 2}
+    Chance: 0.3
   - Event: {fileID: 11400000, guid: 8bd6f9ec771085745aa8ea12df4e1a36, type: 2}
-    Chance: 0.5
+    Chance: 0.1
+  - Event: {fileID: 11400000, guid: 04b263e174dbee344b1dcdd0894a35fe, type: 2}
+    Chance: 0.05
   ResourceChances:
   - Resource: {fileID: 11400000, guid: 3c669f0eb12122747bf45ffa4487a9dd, type: 2}
     Chance: 0.3
@@ -36,3 +40,7 @@ MonoBehaviour:
     Chance: 0.3
   - Resource: {fileID: 11400000, guid: 60e869622f9315d4d862e7a7a09b3cb1, type: 2}
     Chance: 0.4
+  - Resource: {fileID: 11400000, guid: 11ab4abadf767a548a4877d91d67b2bc, type: 2}
+    Chance: 0.75
+  - Resource: {fileID: 11400000, guid: fd1ac9c27245d5645af0a0283fbc8205, type: 2}
+    Chance: 0.25

@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9636e03549694142941c7edcb726f40, type: 3}
   m_Name: GameObjective
   m_EditorClassIdentifier: 
-  Name: B
-  Content: B
-  daysToUnlock: 0
+  Name: My Objective
+  Content: 'To build a new ship and escape this planet I''ll need
+
+    1000 of each
+    basic resource
+
+    10 Radars
+
+    250 of each rare resource'
+  DaysToUnlock: 0

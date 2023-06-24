@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9636e03549694142941c7edcb726f40, type: 3}
   m_Name: NewGameEntry
   m_EditorClassIdentifier: 
-  Name: A
-  Content: A
-  daysToUnlock: 0
+  Name: This place
+  Content: I reached here after my ship crashed. Luckily, it seemed humans used to
+    live in this planet, so I could find this facility. I don't know how dangerous
+    other areas could be so I should use drones to explore.
+  DaysToUnlock: 0
