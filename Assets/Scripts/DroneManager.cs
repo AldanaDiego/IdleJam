@@ -29,7 +29,7 @@ public class DroneManager : Singleton<DroneManager>
         }
     }
 
-    public void SetupFromSave(List<Squad> squads, List<DroneData> unlockedDroneData)
+    public void SetupFromSave(List<Squad> squads, List<Drone> unassignedDrones, List<DroneData> unlockedDroneData)
     {
         foreach (Squad squad in squads)
         {
@@ -40,6 +40,10 @@ public class DroneManager : Singleton<DroneManager>
                     _drones.Add(drone);
                 }
             }
+        }
+        foreach (Drone drone in unassignedDrones)
+        {
+            _drones.Add(drone);
         }
         _unlockedDrones = unlockedDroneData;
     }

@@ -36,7 +36,7 @@ public class SaveSystem : Singleton<SaveSystem>
         {
             SaveFile save = LoadGame();
             _areaManager.SetupFromSave(save.Areas, save.Squads);
-            _droneManager.SetupFromSave(save.Squads, save.UnlockedDroneData);
+            _droneManager.SetupFromSave(save.Squads, save.UnassignedDrones, save.UnlockedDroneData);
             _squadManager.SetupFromSave(save.Squads);
             _resourceStock.SetupFromSave(save.ResourceStocks);
             _tutorialLog.SetupFromSave(save.TutorialLogSave);
@@ -57,8 +57,9 @@ public class SaveSystem : Singleton<SaveSystem>
             UnlockedMutagens = _biomeMutationManager.GetUnlockedMutagens(),
             TutorialLogSave = _tutorialLog.GetTutorialLogSave(),
             JournalUnlockedEntries = _journalLog.GetUnlockedEntries(),
-            ExplorationsFinished = _journalLog.GetExplorationsFinished()
-        };
+            ExplorationsFinished = _journalLog.GetExplorationsFinished(),
+            UnassignedDrones = _droneManager.GetAvailableDrones()
+    };
 
         string path = Application.persistentDataPath + "/savedata";
         File.WriteAllText(path, Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonUtility.ToJson(save))));
@@ -93,6 +94,7 @@ class SaveFile : ISerializationCallbackReceiver
     public TutorialLogSave TutorialLogSave;
     public List<Mutagen> UnlockedMutagens;
     public List<JournalLogEntry> JournalUnlockedEntries;
+    public List<Drone> UnassignedDrones;
     public int ExplorationsFinished;
     [NonSerialized] public Dictionary<ResourceData, int> ResourceStocks;
     
