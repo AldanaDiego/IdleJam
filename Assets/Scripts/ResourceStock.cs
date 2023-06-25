@@ -6,7 +6,9 @@ using System;
 public class ResourceStock : Singleton<ResourceStock>
 {
     [SerializeField] private ResourceDB _resourceDB;
+    [SerializeField] private ResourceData _radarResource;
 
+    private UIStateManager _stateManager;
     private SquadManager _squadManager;
     private Dictionary<ResourceData, int> _stock;
 
@@ -25,6 +27,7 @@ public class ResourceStock : Singleton<ResourceStock>
     private void Start()
     {
         _squadManager = SquadManager.GetInstance();
+        _stateManager = UIStateManager.GetInstance();
         DroneManager.GetInstance().OnDroneBuilt += OnDroneBuilt;
         ExploreLogManager.OnExploreLogFinished += OnExploreLogFinished;
     }
@@ -78,6 +81,25 @@ public class ResourceStock : Singleton<ResourceStock>
         OnResourcesStockChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    private void CheckGameWon()
+    {
+        bool isGameWon = true;
+        foreach ((ResourceData resource, int amount) in _stock)
+        {
+            if ((resource.IsBasicResource && amount < 1000) ||
+                (resource == _radarResource && amount < 10) ||
+                (!resource.IsBasicResource && amount < 250))
+            {
+                isGameWon = false;
+                break;
+            }
+        }
+        if (isGameWon)
+        {
+            _stateManager.ChangeGameState(UIStateManager.GameState.GAME_WON);
+        }
+    }
+
     private void OnDroneBuilt(object sender, DroneData drone)
     {
         Dictionary<ResourceData, int> newStocks = new Dictionary<ResourceData, int>();
@@ -92,6 +114,7 @@ public class ResourceStock : Singleton<ResourceStock>
     private void OnExploreLogFinished(object sender, EventArgs empty)
     {
         CollectCargoFromSquads();
+        CheckGameWon();
     }
 
     private void OnDestroy()

@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class TitleScreenUI : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _transitionScreen;
+    [SerializeField] private Button _continueButton;
 
     private const float ENTER_TRANSITION_TIME = 0.5f;
     private const float EXIT_TRANSITION_TIME = 1f;
 
     private void OnEnable()
     {
+        _continueButton.interactable = File.Exists(Application.persistentDataPath + "/savedata");
         StartCoroutine(OnShow());
     }
 

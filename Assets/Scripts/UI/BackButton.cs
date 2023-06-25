@@ -22,7 +22,7 @@ public class BackButton : MonoBehaviour
 
     private void OnUIStateChanged(object sender, UIStateManager.GameState newState)
     {
-        _button.interactable = (newState != UIStateManager.GameState.IDLE) && (newState != UIStateManager.GameState.EXPLORING);
+        _button.interactable = (newState != UIStateManager.GameState.IDLE) && (newState != UIStateManager.GameState.EXPLORING) && (newState != UIStateManager.GameState.GAME_WON);
     }
 
     private void OnDestroy()
