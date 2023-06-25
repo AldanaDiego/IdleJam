@@ -13,6 +13,7 @@ public class ExploreLogManager : MonoBehaviour
     [SerializeField] private ScrollRect _scroll;
 
     private ExplorationManager _explorationManager;
+    private AudioManager _audioManager;
 
     private const float LOG_COOLDOWN = 2f;
 
@@ -30,6 +31,7 @@ public class ExploreLogManager : MonoBehaviour
     private void OnCreate()
     {
         _explorationManager = ExplorationManager.GetInstance();
+        _audioManager = AudioManager.GetInstance();
         _explorationManager.OnExplorationEventsTriggered += OnExplorationEventsTriggered;
     }
 
@@ -56,11 +58,22 @@ public class ExploreLogManager : MonoBehaviour
     {
         TextMeshProUGUI log;
         SortedSet<Squad> squads = new SortedSet<Squad>();
+        bool firstSquad = true;
+        _audioManager.PlayExplorationStartedAudio();
         foreach(SquadExplorationEvent squadEvent in squadEvents)
         {
             squads.Add(squadEvent.Squad);
             if (squadEvent.HasCameraEvent)
             {
+                if (!firstSquad)
+                {
+                    _audioManager.PlayCameraSwitchedAudio();
+                }
+                else
+                {
+                    firstSquad = false;
+                    _audioManager.PlayExplorationStartedAudio();
+                }
                 OnExploreLogShown?.Invoke(this, squadEvent);
             }
             yield return new WaitForSeconds(LOG_COOLDOWN);

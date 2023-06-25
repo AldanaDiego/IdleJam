@@ -32,3 +32,4 @@ Game made in Unity for Summer Slow Jams 2023: Idle
 
 ### Music and Sound Effects
 - [Seamless Loop and Short Music](https://assetstore.unity.com/packages/audio/music/seamless-loop-and-short-music-107732) by Fantom
+- [96 General Library (Free Sample Pack)](https://assetstore.unity.com/packages/audio/sound-fx/96-general-library-free-sample-pack-185157) by InspectorJ Sound Effects

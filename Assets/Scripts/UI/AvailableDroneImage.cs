@@ -20,6 +20,11 @@ public class AvailableDroneImage : MonoBehaviour
         {
             _button.interactable = false;
         }
+        else
+        {
+            AudioManager audioManager = AudioManager.GetInstance();
+            _button.onClick.AddListener(() => audioManager.PlayButtonClickedAudio());
+        }
         _drone = drone;
         _transform = transform;
         _image.sprite = drone.GetImage();

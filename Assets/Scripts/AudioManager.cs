@@ -7,6 +7,9 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _mainMusic;
     [SerializeField] private AudioClip _explorationMusic;
+    [SerializeField] private AudioClip _buttonClickedAudio;
+    [SerializeField] private AudioClip _explorationStartedAudio;
+    [SerializeField] private AudioClip _cameraSwitchedAudio;
 
     private UIStateManager _stateManager;
 
@@ -14,6 +17,21 @@ public class AudioManager : Singleton<AudioManager>
     {
         _stateManager = UIStateManager.GetInstance();
         _stateManager.OnStateChanged += OnStateChanged;
+    }
+
+    public void PlayButtonClickedAudio()
+    {
+        _audioSource.PlayOneShot(_buttonClickedAudio, 1);
+    }
+
+    public void PlayExplorationStartedAudio()
+    {
+        _audioSource.PlayOneShot(_explorationStartedAudio, 1);
+    }
+
+    public void PlayCameraSwitchedAudio()
+    {
+        _audioSource.PlayOneShot(_cameraSwitchedAudio, 1);
     }
 
     private void OnStateChanged(object sender, UIStateManager.GameState newState)

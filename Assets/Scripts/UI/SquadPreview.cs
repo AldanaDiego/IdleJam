@@ -9,6 +9,7 @@ public class SquadPreview : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _squadNameText;
     [SerializeField] private List<Image> _droneImages;
+    [SerializeField] private Button _button;
 
     private Transform _transform;
     private Squad _squad;
@@ -38,6 +39,9 @@ public class SquadPreview : MonoBehaviour
             _droneImages[i].color = _transparent;
             i++;
         }
+
+        AudioManager audioManager = AudioManager.GetInstance();
+        _button.onClick.AddListener(() => audioManager.PlayButtonClickedAudio());
     }
 
     public void MoveTo(Transform parent)
